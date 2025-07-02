@@ -8,25 +8,28 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_address")
-public class Address {
+@Table(name = "tb_professional")
+public class Professional {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String street;
-	private Integer number;
-	private String neighborhood;
-	private String city;
-	private String state;
-	private String zipcode;
-	private String complement;
+	private String name;
+	private String registrationNumber;
+	private String email;
+	private String phoneNumber;
+
+	@OneToOne
+	@JoinColumn(name = "address_id")
+	private Address address;
 
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant createdAt;
@@ -35,20 +38,18 @@ public class Address {
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant deletedAt;
 
-	public Address() {
+	public Professional() {
 
 	}
 
-	public Address(Long id, String street, Integer number, String neighborhood, String city, String state,
-			String zipcode, String complement) {
+	public Professional(Long id, String name, String registrationNumber, String email, String phoneNumber,
+			Address address) {
 		this.id = id;
-		this.street = street;
-		this.number = number;
-		this.neighborhood = neighborhood;
-		this.city = city;
-		this.state = state;
-		this.zipcode = zipcode;
-		this.complement = complement;
+		this.name = name;
+		this.registrationNumber = registrationNumber;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
 	}
 
 	public Long getId() {
@@ -59,60 +60,44 @@ public class Address {
 		this.id = id;
 	}
 
-	public String getStreet() {
-		return street;
+	public String getName() {
+		return name;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Integer getNumber() {
-		return number;
+	public String getRegistrationNumber() {
+		return registrationNumber;
 	}
 
-	public void setNumber(Integer number) {
-		this.number = number;
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
 	}
 
-	public String getNeighborhood() {
-		return neighborhood;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setNeighborhood(String neighborhood) {
-		this.neighborhood = neighborhood;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getCity() {
-		return city;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
-	public String getState() {
-		return state;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getZipcode() {
-		return zipcode;
-	}
-
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
-	}
-
-	public String getComplement() {
-		return complement;
-	}
-
-	public void setComplement(String complement) {
-		this.complement = complement;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public Instant getCreatedAt() {
@@ -160,7 +145,7 @@ public class Address {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Address other = (Address) obj;
+		Professional other = (Professional) obj;
 		return Objects.equals(id, other.id);
 	}
 
