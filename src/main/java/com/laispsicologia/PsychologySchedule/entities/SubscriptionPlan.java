@@ -2,6 +2,8 @@ package com.laispsicologia.PsychologySchedule.entities;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -34,6 +37,9 @@ public class SubscriptionPlan {
 	@JoinColumn(name = "client_id")
 	private Client client;
 
+	@OneToMany(mappedBy = "plan")
+	private List<Appointment> appointments = new ArrayList<>();
+
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant createdAt;
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -47,7 +53,6 @@ public class SubscriptionPlan {
 
 	public SubscriptionPlan(Long id, Double appointmentPrice, Integer appointmentFrequency, Instant startDate,
 			Duration appointmentDuration) {
-		super();
 		this.id = id;
 		this.appointmentPrice = appointmentPrice;
 		this.appointmentFrequency = appointmentFrequency;
@@ -101,6 +106,10 @@ public class SubscriptionPlan {
 
 	public void setClient(Client client) {
 		this.client = client;
+	}
+
+	public List<Appointment> getAppointments() {
+		return appointments;
 	}
 
 	public Instant getCreatedAt() {
