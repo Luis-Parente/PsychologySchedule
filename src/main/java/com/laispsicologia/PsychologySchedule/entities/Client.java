@@ -33,6 +33,9 @@ public class Client {
 	@JoinColumn(name = "address_id")
 	private Address address;
 
+	@OneToOne(mappedBy = "client")
+	private SubscriptionPlan subscriptionPlan;
+
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant createdAt;
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -110,6 +113,14 @@ public class Client {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public SubscriptionPlan getSubscriptionPlan() {
+		return subscriptionPlan;
+	}
+
+	public void setSubscriptionPlan(SubscriptionPlan subscriptionPlan) {
+		this.subscriptionPlan = subscriptionPlan;
 	}
 
 	public Instant getCreatedAt() {
