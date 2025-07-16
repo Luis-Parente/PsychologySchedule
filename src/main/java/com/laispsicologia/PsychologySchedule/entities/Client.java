@@ -28,6 +28,7 @@ public class Client {
 
 	private String name;
 	private String cpf;
+
 	private LocalDate birthDate;
 	private String email;
 	private String phoneNumber;
@@ -55,7 +56,6 @@ public class Client {
 
 	public Client(Long id, String name, String cpf, LocalDate birthDate, String email, String phoneNumber,
 			Address address) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.cpf = cpf;

@@ -24,7 +24,10 @@ public class Appointment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant startTime;
+	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant endTime;
 	private AppointmentStatus appointmentStatus;
 	private Double price;
