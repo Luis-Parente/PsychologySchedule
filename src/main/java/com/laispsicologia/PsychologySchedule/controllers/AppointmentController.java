@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.laispsicologia.PsychologySchedule.dto.AppointmentDTO;
-import com.laispsicologia.PsychologySchedule.dto.DateSearchDTO;
 import com.laispsicologia.PsychologySchedule.services.AppointmentService;
 
 @RestController
@@ -23,10 +22,7 @@ public class AppointmentController {
 	@GetMapping(value = "/searchdate")
 	public ResponseEntity<List<AppointmentDTO>> findByDate(@RequestParam(defaultValue = "") String initialDate,
 			@RequestParam(defaultValue = "") String finalDate) {
-		DateSearchDTO dto = new DateSearchDTO();
-		dto.setDates(initialDate, finalDate);
-
-		List<AppointmentDTO> result = service.searchByDate(dto);
+		List<AppointmentDTO> result = service.searchByDate(initialDate, finalDate);
 		return ResponseEntity.ok().body(result);
 
 	}
