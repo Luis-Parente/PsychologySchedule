@@ -11,7 +11,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
@@ -33,10 +32,6 @@ public class Client {
 	private String email;
 	private String phoneNumber;
 
-	@OneToOne
-	@JoinColumn(name = "address_id")
-	private Address address;
-
 	@OneToOne(mappedBy = "client")
 	private SubscriptionPlan subscriptionPlan;
 
@@ -54,15 +49,13 @@ public class Client {
 
 	}
 
-	public Client(Long id, String name, String cpf, LocalDate birthDate, String email, String phoneNumber,
-			Address address) {
+	public Client(Long id, String name, String cpf, LocalDate birthDate, String email, String phoneNumber) {
 		this.id = id;
 		this.name = name;
 		this.cpf = cpf;
 		this.birthDate = birthDate;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.address = address;
 	}
 
 	public Long getId() {
@@ -111,14 +104,6 @@ public class Client {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	public SubscriptionPlan getSubscriptionPlan() {

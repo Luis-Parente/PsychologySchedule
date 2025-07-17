@@ -8,8 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -27,10 +25,6 @@ public class Professional {
 	private String email;
 	private String phoneNumber;
 
-	@OneToOne
-	@JoinColumn(name = "address_id")
-	private Address address;
-
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant createdAt;
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -42,14 +36,12 @@ public class Professional {
 
 	}
 
-	public Professional(Long id, String name, String registrationNumber, String email, String phoneNumber,
-			Address address) {
+	public Professional(Long id, String name, String registrationNumber, String email, String phoneNumber) {
 		this.id = id;
 		this.name = name;
 		this.registrationNumber = registrationNumber;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.address = address;
 	}
 
 	public Long getId() {
@@ -90,14 +82,6 @@ public class Professional {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	public Instant getCreatedAt() {
