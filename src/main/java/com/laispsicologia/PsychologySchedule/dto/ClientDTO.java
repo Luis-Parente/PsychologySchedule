@@ -16,7 +16,6 @@ public class ClientDTO {
 	@NotBlank(message = "Required field")
 	private String name;
 
-	@Size(min = 14, max = 14, message = "CPF must be 14 characters! Excepted pattern xxx.xxx.xxx-xx")
 	@NotBlank(message = "Required field")
 	private String cpf;
 	private LocalDate birthDate;
