@@ -1,4 +1,4 @@
-package com.laispsicologia.PsychologySchedule.controllers.exceptions;
+package com.laispsicologia.PsychologySchedule.service.exceptions;
 
 public class InvalidDateException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

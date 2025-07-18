@@ -8,9 +8,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.laispsicologia.PsychologySchedule.controllers.exceptions.InvalidDateException;
 import com.laispsicologia.PsychologySchedule.dto.AppointmentDTO;
 import com.laispsicologia.PsychologySchedule.repositories.AppointmentRepository;
+import com.laispsicologia.PsychologySchedule.service.exceptions.InvalidDateException;
 
 @Service
 public class AppointmentService {
