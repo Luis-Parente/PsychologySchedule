@@ -37,7 +37,7 @@ public class AppointmentService {
 			return repository.searchByDate(initialDate, finalDate).stream()
 					.map(appointment -> new AppointmentDTO(appointment)).toList();
 		} catch (DateTimeParseException e) {
-			throw new InvalidDateException("Invalid date format! Expected 'dd/MM/yyyyTHH:mm:ssZ'");
+			throw new InvalidDateException("Invalid date format! Expected 'yyyy-MM-ddTHH:mm:ssZ'");
 		}
 
 	}
