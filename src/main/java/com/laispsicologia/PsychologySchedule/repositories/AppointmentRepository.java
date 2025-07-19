@@ -9,7 +9,7 @@ import com.laispsicologia.PsychologySchedule.entities.Appointment;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-	@Query(nativeQuery = true, value = "SELECT * FROM tb_appointment WHERE start_time BETWEEN :initialDate AND :finalDate")
+	@Query(nativeQuery = true, value = "SELECT * FROM tb_appointment WHERE start_time BETWEEN :initialDate AND :finalDate AND deleted_at IS NULL")
 	List<Appointment> searchByDate(String initialDate, String finalDate);
 
 }

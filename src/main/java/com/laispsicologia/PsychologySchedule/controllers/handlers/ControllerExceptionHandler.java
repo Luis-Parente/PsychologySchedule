@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.laispsicologia.PsychologySchedule.dto.CustomErrorDTO;
 import com.laispsicologia.PsychologySchedule.dto.ValidationErrorDTO;
-import com.laispsicologia.PsychologySchedule.service.exceptions.DataBaseException;
 import com.laispsicologia.PsychologySchedule.service.exceptions.InvalidDateException;
 import com.laispsicologia.PsychologySchedule.service.exceptions.ResourceNotFoundException;
 
@@ -34,15 +33,9 @@ public class ControllerExceptionHandler {
 		return ResponseEntity.status(status).body(err);
 	}
 
-	@ExceptionHandler(DataBaseException.class)
-	public ResponseEntity<CustomErrorDTO> dataBase(DataBaseException e, HttpServletRequest request) {
-		HttpStatus status = HttpStatus.BAD_REQUEST;
-		CustomErrorDTO err = new CustomErrorDTO(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
-		return ResponseEntity.status(status).body(err);
-	}
-
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<CustomErrorDTO> methodArgumentNotValid(MethodArgumentNotValidException e, HttpServletRequest request) {
+	public ResponseEntity<CustomErrorDTO> methodArgumentNotValid(MethodArgumentNotValidException e,
+			HttpServletRequest request) {
 		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
 		ValidationErrorDTO err = new ValidationErrorDTO(Instant.now(), status.value(), "Invalid data",
 				request.getRequestURI());
