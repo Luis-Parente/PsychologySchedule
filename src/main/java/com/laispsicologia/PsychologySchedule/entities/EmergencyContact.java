@@ -1,140 +1,130 @@
 package com.laispsicologia.PsychologySchedule.entities;
 
+import com.laispsicologia.PsychologySchedule.entities.enums.Relationship;
+import jakarta.persistence.*;
+
 import java.time.Instant;
 import java.util.Objects;
-
-import com.laispsicologia.PsychologySchedule.entities.enums.Relationship;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_emergency_contact")
 public class EmergencyContact {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String name;
-	private String email;
-	private String phoneNumber;
-	private Relationship relationship;
+    private String name;
+    private String email;
+    private String phoneNumber;
+    private Relationship relationship;
 
-	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private Client client;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant createdAt;
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant updatedAt;
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant deletedAt;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant createdAt;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant updatedAt;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant deletedAt;
 
-	public EmergencyContact() {
+    public EmergencyContact() {
 
-	}
+    }
 
-	public EmergencyContact(Long id, String name, String email, String phoneNumber, Relationship relationship) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.relationship = relationship;
-	}
+    public EmergencyContact(Long id, String name, String email, String phoneNumber, Relationship relationship) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.relationship = relationship;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	public Relationship getRelationship() {
-		return relationship;
-	}
+    public Relationship getRelationship() {
+        return relationship;
+    }
 
-	public void setRelationship(Relationship relationship) {
-		this.relationship = relationship;
-	}
+    public void setRelationship(Relationship relationship) {
+        this.relationship = relationship;
+    }
 
-	public Client getClient() {
-		return client;
-	}
+    public Client getClient() {
+        return client;
+    }
 
-	public void setClient(Client client) {
-		this.client = client;
-	}
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
-	@PrePersist
-	protected void onCreate() {
-		Instant now = Instant.now();
-		createdAt = now;
-		updatedAt = now;
-	}
+    @PrePersist
+    protected void onCreate() {
+        Instant now = Instant.now();
+        createdAt = now;
+        updatedAt = now;
+    }
 
-	@PreUpdate
-	protected void onUpdate() {
-		updatedAt = Instant.now();
-	}
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = Instant.now();
+    }
 
-	public void softDelete() {
-		this.deletedAt = Instant.now();
-	}
+    public void softDelete() {
+        this.deletedAt = Instant.now();
+    }
 
-	public void restore() {
-		this.deletedAt = null;
-	}
+    public void restore() {
+        this.deletedAt = null;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EmergencyContact other = (EmergencyContact) obj;
-		return Objects.equals(id, other.id);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        EmergencyContact other = (EmergencyContact) obj;
+        return Objects.equals(id, other.id);
+    }
 
 }

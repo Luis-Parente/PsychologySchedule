@@ -15,4 +15,7 @@ public interface SubscriptionPlanRepository extends JpaRepository<SubscriptionPl
 
     @Query(nativeQuery = true, value = "SELECT * FROM tb_subscription_plan WHERE id = :id AND deleted_at IS NULL")
     Optional<SubscriptionPlan> findByIdActive(Long id);
+
+    @Query(nativeQuery = true, value = "SELECT EXISTS ( SELECT 1 FROM tb_subscription_plan WHERE client_id = :clientId AND deleted_at IS NULL) AS existingPlan")
+    Boolean getSubscriptionPlanByClientId(Long clientId);
 }

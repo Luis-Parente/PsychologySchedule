@@ -2,20 +2,20 @@ package com.laispsicologia.PsychologySchedule.dto;
 
 public class FieldMessageDTO {
 
-	private String fieldName;
-	private String message;
+    private String fieldName;
+    private String message;
 
-	public FieldMessageDTO(String fieldName, String message) {
-		this.fieldName = fieldName;
-		this.message = message;
-	}
+    public FieldMessageDTO(String fieldName, String message) {
+        this.fieldName = fieldName;
+        this.message = message;
+    }
 
-	public String getFieldName() {
-		return fieldName;
-	}
+    public String getFieldName() {
+        return fieldName;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
 }

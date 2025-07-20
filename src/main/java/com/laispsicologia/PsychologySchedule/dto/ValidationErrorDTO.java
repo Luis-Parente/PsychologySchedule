@@ -6,19 +6,19 @@ import java.util.List;
 
 public class ValidationErrorDTO extends CustomErrorDTO {
 
-	private List<FieldMessageDTO> errors = new ArrayList<>();
+    private List<FieldMessageDTO> errors = new ArrayList<>();
 
-	public ValidationErrorDTO(Instant timestamp, Integer status, String error, String path) {
-		super(timestamp, status, error, path);
-	}
+    public ValidationErrorDTO(Instant timestamp, Integer status, String error, String path) {
+        super(timestamp, status, error, path);
+    }
 
-	public List<FieldMessageDTO> getErrors() {
-		return errors;
-	}
+    public List<FieldMessageDTO> getErrors() {
+        return errors;
+    }
 
-	public void addError(String fieldName, String message) {
-		errors.removeIf(x -> x.getFieldName().equals(fieldName));
-		errors.add(new FieldMessageDTO(fieldName, message));
-	}
+    public void addError(String fieldName, String message) {
+        errors.removeIf(x -> x.getFieldName().equals(fieldName));
+        errors.add(new FieldMessageDTO(fieldName, message));
+    }
 
 }

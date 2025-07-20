@@ -1,166 +1,156 @@
 package com.laispsicologia.PsychologySchedule.entities;
 
+import com.laispsicologia.PsychologySchedule.entities.enums.AppointmentStatus;
+import jakarta.persistence.*;
+
 import java.time.Instant;
 import java.util.Objects;
-
-import com.laispsicologia.PsychologySchedule.entities.enums.AppointmentStatus;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_appointment")
 public class Appointment {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant startTime;
-	
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant endTime;
-	private AppointmentStatus appointmentStatus;
-	private Double price;
-	private Boolean paid;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant startTime;
 
-	@ManyToOne
-	@JoinColumn(name = "plan_id")
-	private SubscriptionPlan plan;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant endTime;
+    private AppointmentStatus appointmentStatus;
+    private Double price;
+    private Boolean paid;
 
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant createdAt;
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant updatedAt;
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant deletedAt;
+    @ManyToOne
+    @JoinColumn(name = "plan_id")
+    private SubscriptionPlan plan;
 
-	public Appointment() {
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant createdAt;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant updatedAt;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant deletedAt;
 
-	}
+    public Appointment() {
 
-	public Appointment(Long id, Instant startTime, Instant endTime, AppointmentStatus appointmentStatus, Double price,
-			Boolean paid) {
-		this.id = id;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.appointmentStatus = appointmentStatus;
-		this.price = price;
-		this.paid = paid;
-	}
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Appointment(Long id, Instant startTime, Instant endTime, AppointmentStatus appointmentStatus, Double price,
+                       Boolean paid) {
+        this.id = id;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.appointmentStatus = appointmentStatus;
+        this.price = price;
+        this.paid = paid;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Instant getStartTime() {
-		return startTime;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setStartTime(Instant startTime) {
-		this.startTime = startTime;
-	}
+    public Instant getStartTime() {
+        return startTime;
+    }
 
-	public Instant getEndTime() {
-		return endTime;
-	}
+    public void setStartTime(Instant startTime) {
+        this.startTime = startTime;
+    }
 
-	public void setEndTime(Instant endTime) {
-		this.endTime = endTime;
-	}
+    public Instant getEndTime() {
+        return endTime;
+    }
 
-	public AppointmentStatus getAppointmentStatus() {
-		return appointmentStatus;
-	}
+    public void setEndTime(Instant endTime) {
+        this.endTime = endTime;
+    }
 
-	public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
-		this.appointmentStatus = appointmentStatus;
-	}
+    public AppointmentStatus getAppointmentStatus() {
+        return appointmentStatus;
+    }
 
-	public Double getPrice() {
-		return price;
-	}
+    public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
+        this.appointmentStatus = appointmentStatus;
+    }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	public Boolean getPaid() {
-		return paid;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-	public void setPaid(Boolean paid) {
-		this.paid = paid;
-	}
+    public Boolean getPaid() {
+        return paid;
+    }
 
-	public SubscriptionPlan getPlan() {
-		return plan;
-	}
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
+    }
 
-	public void setPlan(SubscriptionPlan plan) {
-		this.plan = plan;
-	}
+    public SubscriptionPlan getPlan() {
+        return plan;
+    }
 
-	public Instant getCreatedAt() {
-		return createdAt;
-	}
+    public void setPlan(SubscriptionPlan plan) {
+        this.plan = plan;
+    }
 
-	public Instant getUpdatedAt() {
-		return updatedAt;
-	}
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 
-	public Instant getDeletedAt() {
-		return deletedAt;
-	}
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
 
-	@PrePersist
-	protected void onCreate() {
-		Instant now = Instant.now();
-		createdAt = now;
-		updatedAt = now;
-	}
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
 
-	@PreUpdate
-	protected void onUpdate() {
-		updatedAt = Instant.now();
-	}
+    @PrePersist
+    protected void onCreate() {
+        Instant now = Instant.now();
+        createdAt = now;
+        updatedAt = now;
+    }
 
-	public void softDelete() {
-		this.deletedAt = Instant.now();
-	}
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = Instant.now();
+    }
 
-	public void restore() {
-		this.deletedAt = null;
-	}
+    public void softDelete() {
+        this.deletedAt = Instant.now();
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+    public void restore() {
+        this.deletedAt = null;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Appointment other = (Appointment) obj;
-		return Objects.equals(id, other.id);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Appointment other = (Appointment) obj;
+        return Objects.equals(id, other.id);
+    }
 
 }

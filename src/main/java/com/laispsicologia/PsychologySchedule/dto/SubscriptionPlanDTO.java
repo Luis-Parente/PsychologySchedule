@@ -1,6 +1,8 @@
 package com.laispsicologia.PsychologySchedule.dto;
 
 import com.laispsicologia.PsychologySchedule.entities.SubscriptionPlan;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -12,6 +14,9 @@ public class SubscriptionPlanDTO {
     private Integer appointmentFrequency;
     private Instant startDate;
     private Duration appointmentDuration;
+
+    @Positive(message = "Must be a positive number")
+    @NotNull(message = "Required field")
     private Long clientId;
 
     public SubscriptionPlanDTO() {

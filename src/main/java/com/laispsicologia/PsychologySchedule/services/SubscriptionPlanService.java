@@ -2,8 +2,10 @@ package com.laispsicologia.PsychologySchedule.services;
 
 import com.laispsicologia.PsychologySchedule.dto.SubscriptionPlanDTO;
 import com.laispsicologia.PsychologySchedule.entities.SubscriptionPlan;
+import com.laispsicologia.PsychologySchedule.repositories.ClientRepository;
 import com.laispsicologia.PsychologySchedule.repositories.SubscriptionPlanRepository;
-import com.laispsicologia.PsychologySchedule.service.exceptions.ResourceNotFoundException;
+import com.laispsicologia.PsychologySchedule.services.exceptions.AlreadyExistingPlanException;
+import com.laispsicologia.PsychologySchedule.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,9 @@ public class SubscriptionPlanService {
     @Autowired
     private SubscriptionPlanRepository repository;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     public Page<SubscriptionPlanDTO> findAll(Pageable pageable) {
         return repository.findAllActive(pageable).map(SubscriptionPlanDTO::new);
     }
@@ -25,11 +30,16 @@ public class SubscriptionPlanService {
     }
 
     public SubscriptionPlanDTO insert(SubscriptionPlanDTO dto) {
-        SubscriptionPlan entity = new SubscriptionPlan();
-        copyDtoToEntity(dto, entity);
-        repository.save(entity);
+        Boolean verifyClient = repository.getSubscriptionPlanByClientId(dto.getClientId());
 
-        return new SubscriptionPlanDTO(entity);
+        if (!verifyClient) {
+            SubscriptionPlan entity = new SubscriptionPlan();
+            copyDtoToEntity(dto, entity);
+            repository.save(entity);
+            return new SubscriptionPlanDTO(entity);
+        } else {
+            throw new AlreadyExistingPlanException("This client already has a subscription plan");
+        }
     }
 
     public SubscriptionPlanDTO update(Long id, SubscriptionPlanDTO dto) {
@@ -55,6 +65,6 @@ public class SubscriptionPlanService {
         entity.setAppointmentFrequency(dto.getAppointmentFrequency());
         entity.setStartDate(dto.getStartDate());
         entity.setAppointmentDuration(dto.getAppointmentDuration());
-
+        entity.setClient(clientRepository.getReferenceById(dto.getClientId()));
     }
 }

@@ -1,165 +1,155 @@
 package com.laispsicologia.PsychologySchedule.entities;
 
+import jakarta.persistence.*;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
-
 @Entity
 @Table(name = "tb_subscription_plan")
 public class SubscriptionPlan {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private Double appointmentPrice;
-	private Integer appointmentFrequency;
+    private Double appointmentPrice;
+    private Integer appointmentFrequency;
 
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant startDate;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant startDate;
 
-	private Duration appointmentDuration;
+    private Duration appointmentDuration;
 
-	@OneToOne
-	@JoinColumn(name = "client_id")
-	private Client client;
+    @OneToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
-	@OneToMany(mappedBy = "plan")
-	private List<Appointment> appointments = new ArrayList<>();
+    @OneToMany(mappedBy = "plan")
+    private List<Appointment> appointments = new ArrayList<>();
 
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant createdAt;
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant updatedAt;
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant deletedAt;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant createdAt;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant updatedAt;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant deletedAt;
 
-	public SubscriptionPlan() {
+    public SubscriptionPlan() {
 
-	}
+    }
 
-	public SubscriptionPlan(Long id, Double appointmentPrice, Integer appointmentFrequency, Instant startDate,
-			Duration appointmentDuration) {
-		this.id = id;
-		this.appointmentPrice = appointmentPrice;
-		this.appointmentFrequency = appointmentFrequency;
-		this.startDate = startDate;
-		this.appointmentDuration = appointmentDuration;
-	}
+    public SubscriptionPlan(Long id, Double appointmentPrice, Integer appointmentFrequency, Instant startDate,
+                            Duration appointmentDuration) {
+        this.id = id;
+        this.appointmentPrice = appointmentPrice;
+        this.appointmentFrequency = appointmentFrequency;
+        this.startDate = startDate;
+        this.appointmentDuration = appointmentDuration;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Double getAppointmentPrice() {
-		return appointmentPrice;
-	}
+    public Double getAppointmentPrice() {
+        return appointmentPrice;
+    }
 
-	public void setAppointmentPrice(Double appointmentPrice) {
-		this.appointmentPrice = appointmentPrice;
-	}
+    public void setAppointmentPrice(Double appointmentPrice) {
+        this.appointmentPrice = appointmentPrice;
+    }
 
-	public Integer getAppointmentFrequency() {
-		return appointmentFrequency;
-	}
+    public Integer getAppointmentFrequency() {
+        return appointmentFrequency;
+    }
 
-	public void setAppointmentFrequency(Integer appointmentFrequency) {
-		this.appointmentFrequency = appointmentFrequency;
-	}
+    public void setAppointmentFrequency(Integer appointmentFrequency) {
+        this.appointmentFrequency = appointmentFrequency;
+    }
 
-	public Instant getStartDate() {
-		return startDate;
-	}
+    public Instant getStartDate() {
+        return startDate;
+    }
 
-	public void setStartDate(Instant startDate) {
-		this.startDate = startDate;
-	}
+    public void setStartDate(Instant startDate) {
+        this.startDate = startDate;
+    }
 
-	public Duration getAppointmentDuration() {
-		return appointmentDuration;
-	}
+    public Duration getAppointmentDuration() {
+        return appointmentDuration;
+    }
 
-	public void setAppointmentDuration(Duration appointmentDuration) {
-		this.appointmentDuration = appointmentDuration;
-	}
+    public void setAppointmentDuration(Duration appointmentDuration) {
+        this.appointmentDuration = appointmentDuration;
+    }
 
-	public Client getClient() {
-		return client;
-	}
+    public Client getClient() {
+        return client;
+    }
 
-	public void setClient(Client client) {
-		this.client = client;
-	}
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
-	public List<Appointment> getAppointments() {
-		return appointments;
-	}
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
 
-	public Instant getCreatedAt() {
-		return createdAt;
-	}
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 
-	public Instant getUpdatedAt() {
-		return updatedAt;
-	}
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
 
-	public Instant getDeletedAt() {
-		return deletedAt;
-	}
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
 
-	@PrePersist
-	protected void onCreate() {
-		Instant now = Instant.now();
-		createdAt = now;
-		updatedAt = now;
-	}
+    @PrePersist
+    protected void onCreate() {
+        Instant now = Instant.now();
+        createdAt = now;
+        updatedAt = now;
+    }
 
-	@PreUpdate
-	protected void onUpdate() {
-		updatedAt = Instant.now();
-	}
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = Instant.now();
+    }
 
-	public void softDelete() {
-		this.deletedAt = Instant.now();
-	}
+    public void softDelete() {
+        this.deletedAt = Instant.now();
+    }
 
-	public void restore() {
-		this.deletedAt = null;
-	}
+    public void restore() {
+        this.deletedAt = null;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SubscriptionPlan other = (SubscriptionPlan) obj;
-		return Objects.equals(id, other.id);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SubscriptionPlan other = (SubscriptionPlan) obj;
+        return Objects.equals(id, other.id);
+    }
 
 }

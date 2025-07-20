@@ -1,98 +1,98 @@
 package com.laispsicologia.PsychologySchedule.dto;
 
-import java.time.Instant;
-
 import com.laispsicologia.PsychologySchedule.entities.Appointment;
+
+import java.time.Instant;
 
 public class AppointmentDTO {
 
-	private Long id;
-	private Instant startTime;
-	private Instant endTime;
-	private String appointmentStatus;
-	private Double price;
-	private Boolean paid;
-	private Long planId;
+    private Long id;
+    private Instant startTime;
+    private Instant endTime;
+    private String appointmentStatus;
+    private Double price;
+    private Boolean paid;
+    private Long planId;
 
-	public AppointmentDTO() {
+    public AppointmentDTO() {
 
-	}
+    }
 
-	public AppointmentDTO(Long id, Instant startTime, Instant endTime, String appointmentStatus, Double price,
-			Boolean paid, Long planId) {
-		this.id = id;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.appointmentStatus = appointmentStatus;
-		this.price = price;
-		this.paid = paid;
-		this.planId = planId;
-	}
+    public AppointmentDTO(Long id, Instant startTime, Instant endTime, String appointmentStatus, Double price,
+                          Boolean paid, Long planId) {
+        this.id = id;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.appointmentStatus = appointmentStatus;
+        this.price = price;
+        this.paid = paid;
+        this.planId = planId;
+    }
 
-	public AppointmentDTO(Appointment entity) {
-		this.id = entity.getId();
-		this.startTime = entity.getStartTime();
-		this.endTime = entity.getEndTime();
-		this.appointmentStatus = entity.getAppointmentStatus().toString();
-		this.price = entity.getPrice();
-		this.paid = entity.getPaid();
-		this.planId = entity.getPlan().getId();
-	}
+    public AppointmentDTO(Appointment entity) {
+        this.id = entity.getId();
+        this.startTime = entity.getStartTime();
+        this.endTime = entity.getEndTime();
+        this.appointmentStatus = entity.getAppointmentStatus().toString();
+        this.price = entity.getPrice();
+        this.paid = entity.getPaid();
+        this.planId = entity.getPlan().getId();
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Instant getStartTime() {
-		return startTime;
-	}
+    public Instant getStartTime() {
+        return startTime;
+    }
 
-	public void setStartTime(Instant startTime) {
-		this.startTime = startTime;
-	}
+    public void setStartTime(Instant startTime) {
+        this.startTime = startTime;
+    }
 
-	public Instant getEndTime() {
-		return endTime;
-	}
+    public Instant getEndTime() {
+        return endTime;
+    }
 
-	public void setEndTime(Instant endTime) {
-		this.endTime = endTime;
-	}
+    public void setEndTime(Instant endTime) {
+        this.endTime = endTime;
+    }
 
-	public String getAppointmentStatus() {
-		return appointmentStatus;
-	}
+    public String getAppointmentStatus() {
+        return appointmentStatus;
+    }
 
-	public void setAppointmentStatus(String appointmentStatus) {
-		this.appointmentStatus = appointmentStatus;
-	}
+    public void setAppointmentStatus(String appointmentStatus) {
+        this.appointmentStatus = appointmentStatus;
+    }
 
-	public Double getPrice() {
-		return price;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-	public Boolean getPaid() {
-		return paid;
-	}
+    public Boolean getPaid() {
+        return paid;
+    }
 
-	public void setPaid(Boolean paid) {
-		this.paid = paid;
-	}
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
+    }
 
-	public Long getPlanId() {
-		return planId;
-	}
+    public Long getPlanId() {
+        return planId;
+    }
 
-	public void setPlanId(Long planId) {
-		this.planId = planId;
-	}
+    public void setPlanId(Long planId) {
+        this.planId = planId;
+    }
 
 }
