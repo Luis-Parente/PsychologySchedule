@@ -16,7 +16,7 @@ public class ClientService {
     private ClientRepository repository;
 
     public Page<ClientDTO> findAll(Pageable pageable) {
-        return repository.findAllActive(pageable).map(entity -> new ClientDTO(entity));
+        return repository.findAllActive(pageable).map(ClientDTO::new);
     }
 
     public ClientDTO findById(Long id) {

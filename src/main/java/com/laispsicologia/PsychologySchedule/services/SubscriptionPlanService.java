@@ -65,6 +65,6 @@ public class SubscriptionPlanService {
         entity.setAppointmentFrequency(dto.getAppointmentFrequency());
         entity.setStartDate(dto.getStartDate());
         entity.setAppointmentDuration(dto.getAppointmentDuration());
-        entity.setClient(clientRepository.getReferenceById(dto.getClientId()));
+        entity.setClient(clientRepository.findByIdActive(dto.getClientId()).orElseThrow(() -> new ResourceNotFoundException("Client not found")));
     }
 }
