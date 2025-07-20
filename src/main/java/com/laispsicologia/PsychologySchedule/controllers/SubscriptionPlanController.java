@@ -50,6 +50,7 @@ public class SubscriptionPlanController {
     @Operation(description = "Insert new subscription plan", summary = "Insert subscription plan")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "SubscriptionPlan created successfully", content = @Content(schema = @Schema(implementation = SubscriptionPlanDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "422", description = "Unprocessable Entity", content = @Content(schema = @Schema(implementation = ValidationErrorDTO.class)))})
     @PostMapping(produces = "application/json")
     public ResponseEntity<SubscriptionPlanDTO> insert(@Valid @RequestBody SubscriptionPlanDTO dto) {
@@ -61,6 +62,7 @@ public class SubscriptionPlanController {
     @Operation(description = "Update a subscription plan data", summary = "Update subscription plan")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "SubscriptionPlan updated successfully", content = @Content(schema = @Schema(implementation = SubscriptionPlanDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "422", description = "Unprocessable Entity", content = @Content(schema = @Schema(implementation = ValidationErrorDTO.class)))})
     @PutMapping(value = "{id}", produces = "application/json")

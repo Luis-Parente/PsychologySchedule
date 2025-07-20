@@ -50,6 +50,7 @@ public class ClientController {
     @Operation(description = "Insert new client", summary = "Insert client")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Client created successfully", content = @Content(schema = @Schema(implementation = ClientDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "422", description = "Unprocessable Entity", content = @Content(schema = @Schema(implementation = ValidationErrorDTO.class)))})
     @PostMapping(produces = "application/json")
     public ResponseEntity<ClientDTO> insert(@Valid @RequestBody ClientDTO dto) {
@@ -61,6 +62,7 @@ public class ClientController {
     @Operation(description = "Update a client data", summary = "Update client")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Client updated successfully", content = @Content(schema = @Schema(implementation = ClientDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "422", description = "Unprocessable Entity", content = @Content(schema = @Schema(implementation = ValidationErrorDTO.class)))})
     @PutMapping(value = "{id}", produces = "application/json")
