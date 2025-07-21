@@ -15,5 +15,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             "OR (:endDate BETWEEN start_time AND end_time AND :endDate != start_time))" +
             "AND appointment_status = 3 " +
             "AND deleted_at IS NULL)")
-    Boolean verifyAvailability(String startDate, String endDate);
+    Boolean verifyAppointmentAvailability(String startDate, String endDate);
 }

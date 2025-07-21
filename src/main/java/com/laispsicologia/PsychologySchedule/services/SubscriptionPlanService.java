@@ -2,14 +2,18 @@ package com.laispsicologia.PsychologySchedule.services;
 
 import com.laispsicologia.PsychologySchedule.dto.SubscriptionPlanDTO;
 import com.laispsicologia.PsychologySchedule.entities.SubscriptionPlan;
+import com.laispsicologia.PsychologySchedule.repositories.AppointmentRepository;
 import com.laispsicologia.PsychologySchedule.repositories.ClientRepository;
 import com.laispsicologia.PsychologySchedule.repositories.SubscriptionPlanRepository;
 import com.laispsicologia.PsychologySchedule.services.exceptions.AlreadyExistingPlanException;
+import com.laispsicologia.PsychologySchedule.services.exceptions.InvalidDateException;
 import com.laispsicologia.PsychologySchedule.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class SubscriptionPlanService {
@@ -19,6 +23,9 @@ public class SubscriptionPlanService {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     public Page<SubscriptionPlanDTO> findAll(Pageable pageable) {
         return repository.findAllActive(pageable).map(SubscriptionPlanDTO::new);
@@ -32,14 +39,22 @@ public class SubscriptionPlanService {
     public SubscriptionPlanDTO insert(SubscriptionPlanDTO dto) {
         Boolean verifyClient = repository.getSubscriptionPlanByClientId(dto.getClientId());
 
-        if (!verifyClient) {
-            SubscriptionPlan entity = new SubscriptionPlan();
-            copyDtoToEntity(dto, entity);
-            repository.save(entity);
-            return new SubscriptionPlanDTO(entity);
-        } else {
-            throw new AlreadyExistingPlanException("This client already has a subscription plan");
-        }
+        Boolean verifyPlanAvailability = repository.verifyPlanAvailability(dto.getStartDate().toString());
+
+        LocalDateTime endDate = dto.getStartDate().plus(dto.getAppointmentDuration());
+        Boolean verifyAppointmentAvailability = appointmentRepository.verifyAppointmentAvailability(dto.getStartDate().toString(), endDate.toString());
+
+
+        if (verifyClient) throw new AlreadyExistingPlanException("This client already has a subscription plan");
+
+        if (verifyPlanAvailability) throw new InvalidDateException("An subscription plan already exists at this date and time");
+
+        if (verifyAppointmentAvailability) throw new InvalidDateException("An appointment already exists at this date and time");
+
+        SubscriptionPlan entity = new SubscriptionPlan();
+        copyDtoToEntity(dto, entity);
+        repository.save(entity);
+        return new SubscriptionPlanDTO(entity);
     }
 
     public SubscriptionPlanDTO update(Long id, SubscriptionPlanDTO dto) {

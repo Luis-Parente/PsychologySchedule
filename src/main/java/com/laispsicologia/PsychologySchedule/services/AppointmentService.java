@@ -52,14 +52,14 @@ public class AppointmentService {
 
     public AppointmentDTO newAppointment(AppointmentMinDTO minDTO) {
         LocalDateTime endDate = LocalDateTime.parse(minDTO.getStartDate()).plus(minDTO.getAppointmentDuration());
-        Boolean availability = repository.verifyAvailability(minDTO.getStartDate(), endDate.toString());
-        if (!availability) {
-            Appointment newAppointment = createAppointment(minDTO);
-            newAppointment = repository.save(newAppointment);
-            return new AppointmentDTO(newAppointment);
-        } else {
-            throw new InvalidDateException("An appointment already exists at this date and time");
-        }
+        Boolean availability = repository.verifyAppointmentAvailability(minDTO.getStartDate(), endDate.toString());
+
+        if (availability) throw new InvalidDateException("An appointment already exists at this date and time");
+
+        Appointment newAppointment = createAppointment(minDTO);
+        newAppointment = repository.save(newAppointment);
+
+        return new AppointmentDTO(newAppointment);
     }
 
     private Appointment createAppointment(AppointmentMinDTO dto) {
