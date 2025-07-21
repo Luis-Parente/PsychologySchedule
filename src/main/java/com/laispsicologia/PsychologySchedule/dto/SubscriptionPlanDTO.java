@@ -5,14 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.time.Duration;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 public class SubscriptionPlanDTO {
 
     private Long id;
     private Double appointmentPrice;
     private Integer appointmentFrequency;
-    private Instant startDate;
+    private LocalDateTime startDate;
     private Duration appointmentDuration;
 
     @Positive(message = "Must be a positive number")
@@ -23,7 +23,7 @@ public class SubscriptionPlanDTO {
 
     }
 
-    public SubscriptionPlanDTO(Long id, Double appointmentPrice, Integer appointmentFrequency, Instant startDate, Duration appointmentDuration, Long clientId) {
+    public SubscriptionPlanDTO(Long id, Double appointmentPrice, Integer appointmentFrequency, LocalDateTime startDate, Duration appointmentDuration, Long clientId) {
         this.id = id;
         this.appointmentPrice = appointmentPrice;
         this.appointmentFrequency = appointmentFrequency;
@@ -65,11 +65,11 @@ public class SubscriptionPlanDTO {
         this.appointmentFrequency = appointmentFrequency;
     }
 
-    public Instant getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Instant startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 

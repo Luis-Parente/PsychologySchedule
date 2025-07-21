@@ -2,13 +2,13 @@ package com.laispsicologia.PsychologySchedule.dto;
 
 import com.laispsicologia.PsychologySchedule.entities.Appointment;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 public class AppointmentDTO {
 
     private Long id;
-    private Instant startTime;
-    private Instant endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String appointmentStatus;
     private Double price;
     private Boolean paid;
@@ -18,7 +18,7 @@ public class AppointmentDTO {
 
     }
 
-    public AppointmentDTO(Long id, Instant startTime, Instant endTime, String appointmentStatus, Double price,
+    public AppointmentDTO(Long id, LocalDateTime startTime, LocalDateTime endTime, String appointmentStatus, Double price,
                           Boolean paid, Long planId) {
         this.id = id;
         this.startTime = startTime;
@@ -47,19 +47,19 @@ public class AppointmentDTO {
         this.id = id;
     }
 
-    public Instant getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Instant startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Instant getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Instant endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 

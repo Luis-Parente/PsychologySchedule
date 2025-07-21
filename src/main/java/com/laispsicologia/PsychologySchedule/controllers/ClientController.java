@@ -29,7 +29,8 @@ public class ClientController {
     private ClientService service;
 
     @Operation(description = "Retrieve a page of clients", summary = "Return clients paged")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Clients retrieved successfully")})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Clients retrieved successfully")})
     @GetMapping(produces = "application/json")
     public ResponseEntity<Page<ClientDTO>> findAll(Pageable pageable) {
         Page<ClientDTO> result = service.findAll(pageable);

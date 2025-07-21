@@ -4,6 +4,7 @@ import com.laispsicologia.PsychologySchedule.entities.enums.AppointmentStatus;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -13,12 +14,8 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant startTime;
-
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private AppointmentStatus appointmentStatus;
     private Double price;
     private Boolean paid;
@@ -38,7 +35,7 @@ public class Appointment {
 
     }
 
-    public Appointment(Long id, Instant startTime, Instant endTime, AppointmentStatus appointmentStatus, Double price,
+    public Appointment(Long id, LocalDateTime startTime, LocalDateTime endTime, AppointmentStatus appointmentStatus, Double price,
                        Boolean paid) {
         this.id = id;
         this.startTime = startTime;
@@ -56,19 +53,19 @@ public class Appointment {
         this.id = id;
     }
 
-    public Instant getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Instant startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Instant getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Instant endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 

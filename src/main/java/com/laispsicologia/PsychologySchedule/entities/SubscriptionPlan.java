@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,10 +19,7 @@ public class SubscriptionPlan {
 
     private Double appointmentPrice;
     private Integer appointmentFrequency;
-
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant startDate;
-
+    private LocalDateTime startDate;
     private Duration appointmentDuration;
 
     @OneToOne
@@ -42,7 +40,7 @@ public class SubscriptionPlan {
 
     }
 
-    public SubscriptionPlan(Long id, Double appointmentPrice, Integer appointmentFrequency, Instant startDate,
+    public SubscriptionPlan(Long id, Double appointmentPrice, Integer appointmentFrequency, LocalDateTime startDate,
                             Duration appointmentDuration) {
         this.id = id;
         this.appointmentPrice = appointmentPrice;
@@ -75,11 +73,11 @@ public class SubscriptionPlan {
         this.appointmentFrequency = appointmentFrequency;
     }
 
-    public Instant getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Instant startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 

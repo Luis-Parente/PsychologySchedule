@@ -8,8 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface EmergencyContactRepository extends JpaRepository<EmergencyContact
-        , Long> {
+public interface EmergencyContactRepository extends JpaRepository<EmergencyContact, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM tb_emergency_contact WHERE deleted_at IS NULL")
     Page<EmergencyContact> findAllActive(Pageable pageable);
