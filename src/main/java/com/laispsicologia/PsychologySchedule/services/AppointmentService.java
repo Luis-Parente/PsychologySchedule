@@ -9,13 +9,11 @@ import com.laispsicologia.PsychologySchedule.repositories.SubscriptionPlanReposi
 import com.laispsicologia.PsychologySchedule.services.exceptions.InvalidDateException;
 import com.laispsicologia.PsychologySchedule.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 @Service
 public class AppointmentService {
@@ -26,32 +24,21 @@ public class AppointmentService {
     @Autowired
     private SubscriptionPlanRepository planRepository;
 
-    public List<AppointmentDTO> searchByDate(String initialDate, String finalDate) {
-        try {
-            if (initialDate.isBlank()) {
-                initialDate = LocalDateTime.now().minus(15, ChronoUnit.DAYS).toString();
-            }
-
-            if (finalDate.isBlank()) {
-                finalDate = LocalDateTime.now().plus(15, ChronoUnit.DAYS).toString();
-            }
-
-            LocalDateTime initialInstant = LocalDateTime.parse(initialDate);
-            LocalDateTime finalInstant = LocalDateTime.parse(finalDate);
-
-            initialDate = initialInstant.toString();
-            finalDate = finalInstant.toString();
-
-            return repository.searchByDate(initialDate, finalDate).stream().map(AppointmentDTO::new).toList();
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateException("Invalid date format! Expected 'yyyy-MM-ddTHH:mm:ss'");
+    public Page<AppointmentDTO> searchByDate(LocalDateTime initialDate, LocalDateTime finalDate, Pageable pageable) {
+        if (initialDate == null) {
+            initialDate = LocalDateTime.now().minusDays(15);
         }
 
+        if (finalDate == null) {
+            finalDate = LocalDateTime.now().plusDays(15);
+        }
+
+        return repository.searchByDate(initialDate, finalDate, pageable).map(AppointmentDTO::new);
     }
 
     public AppointmentDTO newAppointment(AppointmentMinDTO minDTO) {
         LocalDateTime endDate = minDTO.getStartDate().plus(minDTO.getAppointmentDuration());
-        Boolean availability = repository.verifyAppointmentAvailability(minDTO.getStartDate().toString(), endDate.toString());
+        Boolean availability = repository.verifyAppointmentAvailability(minDTO.getStartDate(), endDate);
 
         if (availability) throw new InvalidDateException("An appointment already exists at this date and time");
 

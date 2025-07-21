@@ -39,10 +39,10 @@ public class SubscriptionPlanService {
     public SubscriptionPlanDTO insert(SubscriptionPlanDTO dto) {
         Boolean verifyClient = repository.getSubscriptionPlanByClientId(dto.getClientId());
 
-        Boolean verifyPlanAvailability = repository.verifyPlanAvailability(dto.getStartDate().toString());
+        Boolean verifyPlanAvailability = repository.verifyPlanAvailability(dto.getStartDate());
 
         LocalDateTime endDate = dto.getStartDate().plus(dto.getAppointmentDuration());
-        Boolean verifyAppointmentAvailability = appointmentRepository.verifyAppointmentAvailability(dto.getStartDate().toString(), endDate.toString());
+        Boolean verifyAppointmentAvailability = appointmentRepository.verifyAppointmentAvailability(dto.getStartDate(), endDate);
 
 
         if (verifyClient) throw new AlreadyExistingPlanException("This client already has a subscription plan");

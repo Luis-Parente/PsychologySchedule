@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface SubscriptionPlanRepository extends JpaRepository<SubscriptionPlan, Long> {
@@ -20,5 +21,5 @@ public interface SubscriptionPlanRepository extends JpaRepository<SubscriptionPl
     Boolean getSubscriptionPlanByClientId(Long clientId);
 
     @Query(nativeQuery = true, value = "SELECT EXISTS (SELECT 1 FROM tb_subscription_plan WHERE :startDate = start_date AND deleted_at IS NULL)")
-    Boolean verifyPlanAvailability(String startDate);
+    Boolean verifyPlanAvailability(LocalDateTime startDate);
 }
