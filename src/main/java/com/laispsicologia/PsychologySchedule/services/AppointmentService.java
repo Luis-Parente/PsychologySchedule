@@ -29,23 +29,22 @@ public class AppointmentService {
     public List<AppointmentDTO> searchByDate(String initialDate, String finalDate) {
         try {
             if (initialDate.isBlank()) {
-                initialDate = Instant.now().minus(15, ChronoUnit.DAYS).toString();
+                initialDate = LocalDateTime.now().minus(15, ChronoUnit.DAYS).toString();
             }
 
             if (finalDate.isBlank()) {
-                finalDate = Instant.now().plus(15, ChronoUnit.DAYS).toString();
+                finalDate = LocalDateTime.now().plus(15, ChronoUnit.DAYS).toString();
             }
 
-            Instant initialInstant = Instant.parse(initialDate);
-            Instant finalInstant = Instant.parse(finalDate);
+            LocalDateTime initialInstant = LocalDateTime.parse(initialDate);
+            LocalDateTime finalInstant = LocalDateTime.parse(finalDate);
 
             initialDate = initialInstant.toString();
             finalDate = finalInstant.toString();
 
-            return repository.searchByDate(initialDate, finalDate).stream()
-                    .map(AppointmentDTO::new).toList();
+            return repository.searchByDate(initialDate, finalDate).stream().map(AppointmentDTO::new).toList();
         } catch (DateTimeParseException e) {
-            throw new InvalidDateException("Invalid date format! Expected 'yyyy-MM-ddTHH:mm:ssZ'");
+            throw new InvalidDateException("Invalid date format! Expected 'yyyy-MM-ddTHH:mm:ss'");
         }
 
     }
