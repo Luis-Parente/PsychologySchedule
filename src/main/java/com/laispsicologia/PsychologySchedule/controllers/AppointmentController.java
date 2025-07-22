@@ -32,7 +32,7 @@ public class AppointmentController {
 
     @Operation(description = "Retrieve a list of appointments filtered by the initial date", summary = "List appointments filtered by date")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Appointments retrieved successfully", content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppointmentDTO.class)))),
+            @ApiResponse(responseCode = "200", description = "Appointments retrieved successfully"),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
     @GetMapping(value = "/searchdate", produces = "application/json")
     public ResponseEntity<Page<AppointmentDTO>> findByDate(@RequestParam(defaultValue = "") LocalDateTime initialDate,
@@ -46,6 +46,7 @@ public class AppointmentController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Appointment created successfully", content = @Content(schema = @Schema(implementation = AppointmentDTO.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Conflict", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "422", description = "Unprocessable Entity", content = @Content(schema = @Schema(implementation = ValidationErrorDTO.class)))})
     @PostMapping(produces = "application/json")
     public ResponseEntity<AppointmentDTO> newAppointment(@RequestBody AppointmentMinDTO minDTO) {
@@ -54,10 +55,11 @@ public class AppointmentController {
         return ResponseEntity.created(uri).body(dto);
     }
 
-    @Operation(description = "Retrieve a list of appointments filtered by the initial date", summary = "List appointments filtered by date")
+    @Operation(description = "Generate a schedule between two dates", summary = "Generate schedule in a period")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Appointments retrieved successfully", content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppointmentDTO.class)))),
-            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
+            @ApiResponse(responseCode = "200", description = "Schedule generate successfully"),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
+            @ApiResponse(responseCode = "409", description = "Conflict", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
     @PostMapping(value = "/schedule", produces = "application/json")
     public ResponseEntity<Page<AppointmentDTO>> newSchedule(@RequestParam(defaultValue = "") LocalDateTime initialDate,
                                                             @RequestParam(defaultValue = "") LocalDateTime finalDate,

@@ -39,7 +39,7 @@ public class AppointmentService {
     }
 
     public AppointmentDTO newAppointment(AppointmentMinDTO minDTO) {
-        LocalDateTime endDate = minDTO.getStartDate().plus(minDTO.getAppointmentDuration());
+        LocalDateTime endDate = minDTO.getStartDate().plusMinutes(minDTO.getAppointmentDurationInMinutes());
         Boolean availability = repository.verifyAppointmentAvailability(minDTO.getStartDate(), endDate);
 
         if (availability) throw new InvalidDateException("An appointment already exists at this date and time");
@@ -85,7 +85,7 @@ public class AppointmentService {
         entity.setAppointmentStatus(AppointmentStatus.PENDING);
         entity.setPrice(dto.getAppointmentPrice());
         entity.setStartTime(dto.getStartDate());
-        entity.setEndTime(dto.getStartDate().plus(dto.getAppointmentDuration()));
+        entity.setEndTime(dto.getStartDate().plusMinutes(dto.getAppointmentDurationInMinutes()));
         entity.setPaid(dto.getPaid());
         entity.setPlan(planRepository.findByIdActive(dto.getPlanId()).orElseThrow(() -> new ResourceNotFoundException("Subscription plan not found")));
         return entity;

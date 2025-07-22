@@ -1,13 +1,12 @@
 package com.laispsicologia.PsychologySchedule.dto;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class AppointmentMinDTO {
 
     private Double appointmentPrice;
     private LocalDateTime startDate;
-    private Duration appointmentDuration;
+    private Long appointmentDurationInMinutes;
     private Boolean paid;
     private Long planId;
 
@@ -15,10 +14,10 @@ public class AppointmentMinDTO {
 
     }
 
-    public AppointmentMinDTO(Double appointmentPrice, LocalDateTime startDate, Duration appointmentDuration, Boolean paid, Long planId) {
+    public AppointmentMinDTO(Double appointmentPrice, LocalDateTime startDate, Long appointmentDuration, Boolean paid, Long planId) {
         this.appointmentPrice = appointmentPrice;
         this.startDate = startDate;
-        this.appointmentDuration = appointmentDuration;
+        this.appointmentDurationInMinutes = appointmentDurationInMinutes;
         this.paid = paid;
         this.planId = planId;
     }
@@ -39,12 +38,12 @@ public class AppointmentMinDTO {
         this.startDate = startDate;
     }
 
-    public Duration getAppointmentDuration() {
-        return appointmentDuration;
+    public Long getAppointmentDurationInMinutes() {
+        return appointmentDurationInMinutes;
     }
 
-    public void setAppointmentDuration(Duration appointmentDuration) {
-        this.appointmentDuration = appointmentDuration;
+    public void setAppointmentDurationInMinutes(Long appointmentDurationInMinutes) {
+        this.appointmentDurationInMinutes = appointmentDurationInMinutes;
     }
 
     public Boolean getPaid() {
