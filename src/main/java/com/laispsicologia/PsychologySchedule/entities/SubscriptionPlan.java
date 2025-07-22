@@ -2,7 +2,6 @@ package com.laispsicologia.PsychologySchedule.entities;
 
 import jakarta.persistence.*;
 
-import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class SubscriptionPlan {
     private Double appointmentPrice;
     private Integer appointmentFrequency;
     private LocalDateTime startDate;
-    private Duration appointmentDuration;
+    private Long appointmentDurationInMinutes;
 
     @OneToOne
     @JoinColumn(name = "client_id")
@@ -41,12 +40,12 @@ public class SubscriptionPlan {
     }
 
     public SubscriptionPlan(Long id, Double appointmentPrice, Integer appointmentFrequency, LocalDateTime startDate,
-                            Duration appointmentDuration) {
+                            Long appointmentDurationInMinutes) {
         this.id = id;
         this.appointmentPrice = appointmentPrice;
         this.appointmentFrequency = appointmentFrequency;
         this.startDate = startDate;
-        this.appointmentDuration = appointmentDuration;
+        this.appointmentDurationInMinutes = appointmentDurationInMinutes;
     }
 
     public Long getId() {
@@ -81,12 +80,12 @@ public class SubscriptionPlan {
         this.startDate = startDate;
     }
 
-    public Duration getAppointmentDuration() {
-        return appointmentDuration;
+    public Long getAppointmentDurationInMinutes() {
+        return appointmentDurationInMinutes;
     }
 
-    public void setAppointmentDuration(Duration appointmentDuration) {
-        this.appointmentDuration = appointmentDuration;
+    public void setAppointmentDurationInMinutes(Long appointmentDuration) {
+        this.appointmentDurationInMinutes = appointmentDuration;
     }
 
     public Client getClient() {

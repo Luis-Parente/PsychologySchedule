@@ -41,9 +41,8 @@ public class SubscriptionPlanService {
 
         Boolean verifyPlanAvailability = repository.verifyPlanAvailability(dto.getStartDate());
 
-        LocalDateTime endDate = dto.getStartDate().plus(dto.getAppointmentDuration());
+        LocalDateTime endDate = dto.getStartDate().plusMinutes(dto.getAppointmentDurationInMinutes());
         Boolean verifyAppointmentAvailability = appointmentRepository.verifyAppointmentAvailability(dto.getStartDate(), endDate);
-
 
         if (verifyClient) throw new AlreadyExistingPlanException("This client already has a subscription plan");
 
@@ -79,7 +78,7 @@ public class SubscriptionPlanService {
         entity.setAppointmentPrice(dto.getAppointmentPrice());
         entity.setAppointmentFrequency(dto.getAppointmentFrequency());
         entity.setStartDate(dto.getStartDate());
-        entity.setAppointmentDuration(dto.getAppointmentDuration());
+        entity.setAppointmentDurationInMinutes(dto.getAppointmentDurationInMinutes());
         entity.setClient(clientRepository.findByIdActive(dto.getClientId()).orElseThrow(() -> new ResourceNotFoundException("Client not found")));
     }
 }

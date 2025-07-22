@@ -4,7 +4,6 @@ import com.laispsicologia.PsychologySchedule.entities.SubscriptionPlan;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class SubscriptionPlanDTO {
@@ -13,7 +12,7 @@ public class SubscriptionPlanDTO {
     private Double appointmentPrice;
     private Integer appointmentFrequency;
     private LocalDateTime startDate;
-    private Duration appointmentDuration;
+    private Long appointmentDurationInMinutes;
 
     @Positive(message = "Must be a positive number")
     @NotNull(message = "Required field")
@@ -23,12 +22,12 @@ public class SubscriptionPlanDTO {
 
     }
 
-    public SubscriptionPlanDTO(Long id, Double appointmentPrice, Integer appointmentFrequency, LocalDateTime startDate, Duration appointmentDuration, Long clientId) {
+    public SubscriptionPlanDTO(Long id, Double appointmentPrice, Integer appointmentFrequency, LocalDateTime startDate, Long appointmentDurationInMinutes, Long clientId) {
         this.id = id;
         this.appointmentPrice = appointmentPrice;
         this.appointmentFrequency = appointmentFrequency;
         this.startDate = startDate;
-        this.appointmentDuration = appointmentDuration;
+        this.appointmentDurationInMinutes = appointmentDurationInMinutes;
         this.clientId = clientId;
     }
 
@@ -37,7 +36,7 @@ public class SubscriptionPlanDTO {
         this.appointmentPrice = entity.getAppointmentPrice();
         this.appointmentFrequency = entity.getAppointmentFrequency();
         this.startDate = entity.getStartDate();
-        this.appointmentDuration = entity.getAppointmentDuration();
+        this.appointmentDurationInMinutes = entity.getAppointmentDurationInMinutes();
         this.clientId = entity.getClient().getId();
     }
 
@@ -73,12 +72,12 @@ public class SubscriptionPlanDTO {
         this.startDate = startDate;
     }
 
-    public Duration getAppointmentDuration() {
-        return appointmentDuration;
+    public Long getAppointmentDurationInMinutes() {
+        return appointmentDurationInMinutes;
     }
 
-    public void setAppointmentDuration(Duration appointmentDuration) {
-        this.appointmentDuration = appointmentDuration;
+    public void getAppointmentDurationInMinutes(Long appointmentDurationInMinutes) {
+        this.appointmentDurationInMinutes = appointmentDurationInMinutes;
     }
 
     public Long getClientId() {

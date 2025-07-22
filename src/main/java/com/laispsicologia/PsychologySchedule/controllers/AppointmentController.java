@@ -1,6 +1,9 @@
 package com.laispsicologia.PsychologySchedule.controllers;
 
-import com.laispsicologia.PsychologySchedule.dto.*;
+import com.laispsicologia.PsychologySchedule.dto.AppointmentDTO;
+import com.laispsicologia.PsychologySchedule.dto.AppointmentMinDTO;
+import com.laispsicologia.PsychologySchedule.dto.CustomErrorDTO;
+import com.laispsicologia.PsychologySchedule.dto.ValidationErrorDTO;
 import com.laispsicologia.PsychologySchedule.services.AppointmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -49,5 +52,17 @@ public class AppointmentController {
         AppointmentDTO dto = service.newAppointment(minDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @Operation(description = "Retrieve a list of appointments filtered by the initial date", summary = "List appointments filtered by date")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Appointments retrieved successfully", content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppointmentDTO.class)))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
+    @PostMapping(value = "/schedule", produces = "application/json")
+    public ResponseEntity<Page<AppointmentDTO>> newSchedule(@RequestParam(defaultValue = "") LocalDateTime initialDate,
+                                                            @RequestParam(defaultValue = "") LocalDateTime finalDate,
+                                                            Pageable pageable) {
+        Page<AppointmentDTO> result = service.newSchedule(initialDate, finalDate, pageable);
+        return ResponseEntity.ok().body(result);
     }
 }

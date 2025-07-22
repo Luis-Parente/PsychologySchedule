@@ -20,7 +20,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(InvalidDateException.class)
     public ResponseEntity<CustomErrorDTO> invalidDate(InvalidDateException e, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
+        HttpStatus status = HttpStatus.CONFLICT;
         CustomErrorDTO err = new CustomErrorDTO(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
