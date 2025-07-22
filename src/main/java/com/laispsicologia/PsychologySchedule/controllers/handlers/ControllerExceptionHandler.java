@@ -2,7 +2,6 @@ package com.laispsicologia.PsychologySchedule.controllers.handlers;
 
 import com.laispsicologia.PsychologySchedule.dto.CustomErrorDTO;
 import com.laispsicologia.PsychologySchedule.dto.ValidationErrorDTO;
-import com.laispsicologia.PsychologySchedule.services.exceptions.AlreadyExistingPlanException;
 import com.laispsicologia.PsychologySchedule.services.exceptions.InvalidDateException;
 import com.laispsicologia.PsychologySchedule.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,13 +27,6 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<CustomErrorDTO> resourceNotFound(ResourceNotFoundException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
-        CustomErrorDTO err = new CustomErrorDTO(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
-        return ResponseEntity.status(status).body(err);
-    }
-
-    @ExceptionHandler(AlreadyExistingPlanException.class)
-    public ResponseEntity<CustomErrorDTO> alreadyExistingPlan(AlreadyExistingPlanException e, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.CONFLICT;
         CustomErrorDTO err = new CustomErrorDTO(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }

@@ -13,13 +13,13 @@ public class AppointmentDTO {
     private Double price;
     private Boolean paid;
     private Long planId;
+    private Long clientId;
 
     public AppointmentDTO() {
 
     }
 
-    public AppointmentDTO(Long id, LocalDateTime startTime, LocalDateTime endTime, String appointmentStatus, Double price,
-                          Boolean paid, Long planId) {
+    public AppointmentDTO(Long id, LocalDateTime startTime, LocalDateTime endTime, String appointmentStatus, Double price, Boolean paid, Long planId, Long clientId) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -27,6 +27,7 @@ public class AppointmentDTO {
         this.price = price;
         this.paid = paid;
         this.planId = planId;
+        this.clientId = clientId;
     }
 
     public AppointmentDTO(Appointment entity) {
@@ -36,7 +37,7 @@ public class AppointmentDTO {
         this.appointmentStatus = entity.getAppointmentStatus().toString();
         this.price = entity.getPrice();
         this.paid = entity.getPaid();
-        this.planId = entity.getPlan().getId();
+        this.planId = entity.getClient().getId();
     }
 
     public Long getId() {
@@ -95,4 +96,11 @@ public class AppointmentDTO {
         this.planId = planId;
     }
 
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
 }

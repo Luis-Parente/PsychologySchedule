@@ -27,17 +27,13 @@ public class ClientService {
     public ClientDTO insert(ClientDTO dto) {
         Client entity = new Client();
         copyDtoToEntity(dto, entity);
-        entity = repository.save(entity);
-
-        return new ClientDTO(entity);
+        return new ClientDTO(repository.save(entity));
     }
 
     public ClientDTO update(Long id, ClientDTO dto) {
         Client entity = getEntityById(id);
         copyDtoToEntity(dto, entity);
-        entity = repository.save(entity);
-
-        return new ClientDTO(entity);
+        return new ClientDTO(repository.save(entity));
     }
 
     public void delete(Long id) {
@@ -56,6 +52,11 @@ public class ClientService {
         entity.setBirthDate(dto.getBirthDate());
         entity.setEmail(dto.getEmail());
         entity.setPhoneNumber(dto.getPhoneNumber());
+        entity.setAppointmentPrice(dto.getAppointmentPrice());
+        entity.setAppointmentFrequency(dto.getAppointmentFrequency());
+        entity.setTreatmentStartDate(dto.getTreatmentStartDate());
+        entity.setTreatmentEndDate(dto.getTreatmentEndDate());
+        entity.setAppointmentDurationInMinutes(dto.getAppointmentDurationInMinutes());
     }
 
 }

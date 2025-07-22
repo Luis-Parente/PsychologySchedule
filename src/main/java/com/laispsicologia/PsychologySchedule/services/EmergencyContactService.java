@@ -32,17 +32,13 @@ public class EmergencyContactService {
     public EmergencyContactDTO insert(EmergencyContactDTO dto) {
         EmergencyContact entity = new EmergencyContact();
         copyDtoToEntity(dto, entity);
-        entity = repository.save(entity);
-
-        return new EmergencyContactDTO(entity);
+        return new EmergencyContactDTO(repository.save(entity));
     }
 
     public EmergencyContactDTO update(Long id, EmergencyContactDTO dto) {
         EmergencyContact entity = getEntityById(id);
         copyDtoToEntity(dto, entity);
-        entity = repository.save(entity);
-
-        return new EmergencyContactDTO(entity);
+        return new EmergencyContactDTO(repository.save(entity));
     }
 
     public void delete(Long id) {

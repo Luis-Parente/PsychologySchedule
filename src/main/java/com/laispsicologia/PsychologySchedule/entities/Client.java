@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -18,16 +19,20 @@ public class Client {
 
     private String name;
     private String cpf;
-
     private LocalDate birthDate;
     private String email;
     private String phoneNumber;
-
-    @OneToOne(mappedBy = "client")
-    private SubscriptionPlan subscriptionPlan;
+    private Double appointmentPrice;
+    private Integer appointmentFrequency;
+    private LocalDateTime treatmentStartDate;
+    private LocalDateTime treatmentEndDate;
+    private Long appointmentDurationInMinutes;
 
     @OneToMany(mappedBy = "client")
     private Set<EmergencyContact> contacts = new HashSet<>();
+
+    @OneToMany(mappedBy = "client")
+    private Set<Appointment> appointments = new HashSet<>();
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
@@ -40,13 +45,18 @@ public class Client {
 
     }
 
-    public Client(Long id, String name, String cpf, LocalDate birthDate, String email, String phoneNumber) {
+    public Client(Long id, String name, String cpf, LocalDate birthDate, String email, String phoneNumber, Double appointmentPrice, Integer appointmentFrequency, LocalDateTime treatmentStartDate, LocalDateTime treatmentEndDate, Long appointmentDurationInMinutes) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.birthDate = birthDate;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.appointmentPrice = appointmentPrice;
+        this.appointmentFrequency = appointmentFrequency;
+        this.treatmentStartDate = treatmentStartDate;
+        this.treatmentEndDate = treatmentEndDate;
+        this.appointmentDurationInMinutes = appointmentDurationInMinutes;
     }
 
     public Long getId() {
@@ -97,16 +107,52 @@ public class Client {
         this.phoneNumber = phoneNumber;
     }
 
-    public SubscriptionPlan getSubscriptionPlan() {
-        return subscriptionPlan;
+    public Double getAppointmentPrice() {
+        return appointmentPrice;
     }
 
-    public void setSubscriptionPlan(SubscriptionPlan subscriptionPlan) {
-        this.subscriptionPlan = subscriptionPlan;
+    public void setAppointmentPrice(Double appointmentPrice) {
+        this.appointmentPrice = appointmentPrice;
+    }
+
+    public Integer getAppointmentFrequency() {
+        return appointmentFrequency;
+    }
+
+    public void setAppointmentFrequency(Integer appointmentFrequency) {
+        this.appointmentFrequency = appointmentFrequency;
+    }
+
+    public LocalDateTime getTreatmentStartDate() {
+        return treatmentStartDate;
+    }
+
+    public void setTreatmentStartDate(LocalDateTime treatmentStartDate) {
+        this.treatmentStartDate = treatmentStartDate;
+    }
+
+    public LocalDateTime getTreatmentEndDate() {
+        return treatmentEndDate;
+    }
+
+    public void setTreatmentEndDate(LocalDateTime treatmentEndDate) {
+        this.treatmentEndDate = treatmentEndDate;
+    }
+
+    public Long getAppointmentDurationInMinutes() {
+        return appointmentDurationInMinutes;
+    }
+
+    public void setAppointmentDurationInMinutes(Long appointmentDurationInMinutes) {
+        this.appointmentDurationInMinutes = appointmentDurationInMinutes;
     }
 
     public Set<EmergencyContact> getContacts() {
         return contacts;
+    }
+
+    public Set<Appointment> getAppointments() {
+        return appointments;
     }
 
     public Instant getCreatedAt() {
@@ -157,5 +203,4 @@ public class Client {
         Client other = (Client) obj;
         return Objects.equals(id, other.id);
     }
-
 }

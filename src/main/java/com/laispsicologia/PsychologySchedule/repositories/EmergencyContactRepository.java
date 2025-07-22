@@ -15,5 +15,4 @@ public interface EmergencyContactRepository extends JpaRepository<EmergencyConta
 
     @Query(nativeQuery = true, value = "SELECT * FROM tb_emergency_contact WHERE id = :id AND deleted_at IS NULL")
     Optional<EmergencyContact> findByIdActive(Long id);
-
 }

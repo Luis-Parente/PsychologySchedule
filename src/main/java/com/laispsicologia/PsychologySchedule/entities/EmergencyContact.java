@@ -90,6 +90,18 @@ public class EmergencyContact {
         this.client = client;
     }
 
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
     @PrePersist
     protected void onCreate() {
         Instant now = Instant.now();

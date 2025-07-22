@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ClientDTO {
 
@@ -25,17 +26,28 @@ public class ClientDTO {
     @NotBlank(message = "Required field")
     private String phoneNumber;
 
+    private Double appointmentPrice;
+    private Integer appointmentFrequency;
+    private LocalDateTime treatmentStartDate;
+    private LocalDateTime treatmentEndDate;
+    private Long appointmentDurationInMinutes;
+
     public ClientDTO() {
 
     }
 
-    public ClientDTO(Long id, String name, String cpf, LocalDate birthDate, String email, String phoneNumber) {
+    public ClientDTO(Long id, String name, String cpf, LocalDate birthDate, String email, String phoneNumber, Double appointmentPrice, Integer appointmentFrequency, LocalDateTime treatmentStartDate, LocalDateTime treatmentEndDate, Long appointmentDurationInMinutes) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.birthDate = birthDate;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.appointmentPrice = appointmentPrice;
+        this.appointmentFrequency = appointmentFrequency;
+        this.treatmentStartDate = treatmentStartDate;
+        this.treatmentEndDate = treatmentEndDate;
+        this.appointmentDurationInMinutes = appointmentDurationInMinutes;
     }
 
     public ClientDTO(Client entity) {
@@ -45,6 +57,11 @@ public class ClientDTO {
         this.birthDate = entity.getBirthDate();
         this.email = entity.getEmail();
         this.phoneNumber = entity.getPhoneNumber();
+        this.appointmentPrice = entity.getAppointmentPrice();
+        this.appointmentFrequency = entity.getAppointmentFrequency();
+        this.treatmentStartDate = entity.getTreatmentStartDate();
+        this.treatmentEndDate = entity.getTreatmentEndDate();
+        this.appointmentDurationInMinutes = entity.getAppointmentDurationInMinutes();
     }
 
     public Long getId() {
@@ -95,4 +112,43 @@ public class ClientDTO {
         this.phoneNumber = phoneNumber;
     }
 
+    public Double getAppointmentPrice() {
+        return appointmentPrice;
+    }
+
+    public void setAppointmentPrice(Double appointmentPrice) {
+        this.appointmentPrice = appointmentPrice;
+    }
+
+    public Integer getAppointmentFrequency() {
+        return appointmentFrequency;
+    }
+
+    public void setAppointmentFrequency(Integer appointmentFrequency) {
+        this.appointmentFrequency = appointmentFrequency;
+    }
+
+    public LocalDateTime getTreatmentStartDate() {
+        return treatmentStartDate;
+    }
+
+    public void setTreatmentStartDate(LocalDateTime treatmentStartDate) {
+        this.treatmentStartDate = treatmentStartDate;
+    }
+
+    public LocalDateTime getTreatmentEndDate() {
+        return treatmentEndDate;
+    }
+
+    public void setTreatmentEndDate(LocalDateTime treatmentEndDate) {
+        this.treatmentEndDate = treatmentEndDate;
+    }
+
+    public Long getAppointmentDurationInMinutes() {
+        return appointmentDurationInMinutes;
+    }
+
+    public void setAppointmentDurationInMinutes(Long appointmentDurationInMinutes) {
+        this.appointmentDurationInMinutes = appointmentDurationInMinutes;
+    }
 }

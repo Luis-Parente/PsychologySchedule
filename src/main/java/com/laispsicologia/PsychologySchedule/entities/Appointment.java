@@ -21,8 +21,8 @@ public class Appointment {
     private Boolean paid;
 
     @ManyToOne
-    @JoinColumn(name = "plan_id")
-    private SubscriptionPlan plan;
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
@@ -35,14 +35,14 @@ public class Appointment {
 
     }
 
-    public Appointment(Long id, LocalDateTime startTime, LocalDateTime endTime, AppointmentStatus appointmentStatus, Double price,
-                       Boolean paid) {
+    public Appointment(Long id, LocalDateTime startTime, LocalDateTime endTime, AppointmentStatus appointmentStatus, Double price, Boolean paid, Client client) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
         this.appointmentStatus = appointmentStatus;
         this.price = price;
         this.paid = paid;
+        this.client = client;
     }
 
     public Long getId() {
@@ -93,12 +93,12 @@ public class Appointment {
         this.paid = paid;
     }
 
-    public SubscriptionPlan getPlan() {
-        return plan;
+    public Client getClient() {
+        return client;
     }
 
-    public void setPlan(SubscriptionPlan plan) {
-        this.plan = plan;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Instant getCreatedAt() {
@@ -149,5 +149,4 @@ public class Appointment {
         Appointment other = (Appointment) obj;
         return Objects.equals(id, other.id);
     }
-
 }
