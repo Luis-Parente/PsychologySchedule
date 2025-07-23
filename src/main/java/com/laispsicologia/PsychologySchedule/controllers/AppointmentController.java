@@ -2,6 +2,7 @@ package com.laispsicologia.PsychologySchedule.controllers;
 
 import com.laispsicologia.PsychologySchedule.dto.AppointmentDTO;
 import com.laispsicologia.PsychologySchedule.dto.AppointmentMinDTO;
+import com.laispsicologia.PsychologySchedule.dto.ClientDTO;
 import com.laispsicologia.PsychologySchedule.services.AppointmentService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -35,6 +36,12 @@ public class AppointmentController {
         AppointmentDTO newAppointment = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newAppointment.getId()).toUri();
         return ResponseEntity.created(uri).body(newAppointment);
+    }
+
+    @PutMapping(value = "/{id}", produces = "application/json")
+    public ResponseEntity<AppointmentDTO> update(@PathVariable Long id, @Valid @RequestBody AppointmentDTO dto) {
+        dto = service.update(id, dto);
+        return ResponseEntity.ok().body(dto);
     }
 
 }

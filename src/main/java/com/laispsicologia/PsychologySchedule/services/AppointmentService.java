@@ -9,6 +9,7 @@ import com.laispsicologia.PsychologySchedule.repositories.AppointmentRepository;
 import com.laispsicologia.PsychologySchedule.repositories.ClientRepository;
 import com.laispsicologia.PsychologySchedule.services.exceptions.InvalidDateException;
 import com.laispsicologia.PsychologySchedule.services.exceptions.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,6 +46,12 @@ public class AppointmentService {
         return new AppointmentDTO(repository.save(newAppointment));
     }
 
+    public AppointmentDTO update(Long id, @Valid AppointmentDTO dto) {
+        Appointment entity = getEntityById(id);
+        copyDtoToEntity(dto, entity);
+        return new AppointmentDTO(repository.save(entity));
+    }
+
     private Appointment createNewAppoint(AppointmentMinDTO dto) {
         Appointment newAppointment = new Appointment();
         Client client = clientRepository.findByIdActive(dto.getClientId())
@@ -56,7 +63,23 @@ public class AppointmentService {
         newAppointment.setPrice(client.getAppointmentPrice());
         newAppointment.setPaid(dto.getPaid());
         newAppointment.setClient(client);
-
         return newAppointment;
+    }
+
+    private void copyDtoToEntity(AppointmentDTO dto, Appointment entity){
+        Client client = clientRepository.findByIdActive(dto.getClientId())
+                .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
+
+        entity.setStartTime(dto.getStartTime());
+        entity.setEndTime(dto.getEndTime());
+        entity.setAppointmentStatus(AppointmentStatus.valueOf(dto.getAppointmentStatus()));
+        entity.setPrice(dto.getPrice());
+        entity.setClient(client);
+    }
+
+
+    private Appointment getEntityById(Long id) {
+        return repository.findByIdActive(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
     }
 }

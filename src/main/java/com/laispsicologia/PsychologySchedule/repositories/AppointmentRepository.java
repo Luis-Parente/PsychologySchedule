@@ -1,12 +1,14 @@
 package com.laispsicologia.PsychologySchedule.repositories;
 
 import com.laispsicologia.PsychologySchedule.entities.Appointment;
+import com.laispsicologia.PsychologySchedule.entities.Client;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
@@ -18,4 +20,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             "AND appointment_status = 3 " +
             "AND deleted_at IS NULL)")
     Boolean verifyAppointmentAvailability(LocalDateTime startTime, LocalDateTime endTime);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM tb_appointment WHERE id = :id AND deleted_at IS NULL")
+    Optional<Appointment> findByIdActive(Long id);
 }
