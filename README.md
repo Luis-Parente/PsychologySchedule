@@ -31,7 +31,7 @@ cd PsychologySchedule
 - H2 Console: http://localhost:8080/h2-console
 - Swagger UI: http://localhost:8080/swagger-ui/index.html
 
-  ## 🔍 Testing the API
+## 🔍 Testing the API
 You can test the API in two ways:
 
 ### 1.Swagger UI
