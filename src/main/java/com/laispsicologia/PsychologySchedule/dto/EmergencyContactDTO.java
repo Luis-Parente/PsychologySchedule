@@ -15,7 +15,8 @@ public class EmergencyContactDTO {
 
     }
 
-    public EmergencyContactDTO(Long id, String name, String email, String phoneNumber, String relationship, Long clientId) {
+    public EmergencyContactDTO(Long id, String name, String email, String phoneNumber, String relationship,
+                               Long clientId) {
         this.id = id;
         this.name = name;
         this.email = email;

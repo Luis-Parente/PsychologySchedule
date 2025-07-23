@@ -35,7 +35,8 @@ public class Appointment {
 
     }
 
-    public Appointment(Long id, LocalDateTime startTime, LocalDateTime endTime, AppointmentStatus appointmentStatus, Double price, Boolean paid, Client client) {
+    public Appointment(Long id, LocalDateTime startTime, LocalDateTime endTime, AppointmentStatus appointmentStatus,
+                       Double price, Boolean paid, Client client) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;

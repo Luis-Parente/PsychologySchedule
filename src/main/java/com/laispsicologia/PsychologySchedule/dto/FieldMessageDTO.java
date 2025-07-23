@@ -17,5 +17,4 @@ public class FieldMessageDTO {
     public String getMessage() {
         return message;
     }
-
 }

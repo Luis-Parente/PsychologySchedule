@@ -19,7 +19,8 @@ public class AppointmentDTO {
 
     }
 
-    public AppointmentDTO(Long id, LocalDateTime startTime, LocalDateTime endTime, String appointmentStatus, Double price, Boolean paid, Long planId, Long clientId) {
+    public AppointmentDTO(Long id, LocalDateTime startTime, LocalDateTime endTime, String appointmentStatus,
+                          Double price, Boolean paid, Long planId, Long clientId) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;

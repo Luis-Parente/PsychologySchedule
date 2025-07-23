@@ -48,7 +48,8 @@ public class EmergencyContactService {
     }
 
     private EmergencyContact getEntityById(Long id) {
-        return repository.findByIdActive(id).orElseThrow(() -> new ResourceNotFoundException("EmergencyContact not found"));
+        return repository.findByIdActive(id)
+                .orElseThrow(() -> new ResourceNotFoundException("EmergencyContact not found"));
     }
 
     private void copyDtoToEntity(EmergencyContactDTO dto, EmergencyContact entity) {
@@ -56,7 +57,8 @@ public class EmergencyContactService {
         entity.setEmail(dto.getEmail());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setRelationship(Relationship.valueOf(dto.getRelationship()));
-        entity.setClient(clientRepository.findByIdActive(dto.getClientId()).orElseThrow(() -> new ResourceNotFoundException("Client not found")));
+        entity.setClient(clientRepository.findByIdActive(dto.getClientId())
+                .orElseThrow(() -> new ResourceNotFoundException("Client not found")));
     }
 
 }

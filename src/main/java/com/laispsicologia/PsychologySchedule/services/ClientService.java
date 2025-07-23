@@ -16,7 +16,8 @@ public class ClientService {
     private ClientRepository repository;
 
     public Page<ClientDTO> findAll(Pageable pageable) {
-        return repository.findAllActive(pageable).map(ClientDTO::new);
+        return repository.findAllActive(pageable)
+                .map(ClientDTO::new);
     }
 
     public ClientDTO findById(Long id) {
@@ -43,7 +44,8 @@ public class ClientService {
     }
 
     private Client getEntityById(Long id) {
-        return repository.findByIdActive(id).orElseThrow(() -> new ResourceNotFoundException("Client not found"));
+        return repository.findByIdActive(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
     }
 
     private void copyDtoToEntity(ClientDTO dto, Client entity) {

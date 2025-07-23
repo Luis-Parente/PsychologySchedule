@@ -29,10 +29,10 @@ public class Client {
     private Long appointmentDurationInMinutes;
 
     @OneToMany(mappedBy = "client")
-    private Set<EmergencyContact> contacts = new HashSet<>();
+    private final Set<EmergencyContact> contacts = new HashSet<>();
 
     @OneToMany(mappedBy = "client")
-    private Set<Appointment> appointments = new HashSet<>();
+    private final Set<Appointment> appointments = new HashSet<>();
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
@@ -45,7 +45,9 @@ public class Client {
 
     }
 
-    public Client(Long id, String name, String cpf, LocalDate birthDate, String email, String phoneNumber, Double appointmentPrice, Integer appointmentFrequency, LocalDateTime treatmentStartDate, LocalDateTime treatmentEndDate, Long appointmentDurationInMinutes) {
+    public Client(Long id, String name, String cpf, LocalDate birthDate, String email, String phoneNumber,
+                  Double appointmentPrice, Integer appointmentFrequency, LocalDateTime treatmentStartDate,
+                  LocalDateTime treatmentEndDate, Long appointmentDurationInMinutes) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
@@ -194,12 +196,9 @@ public class Client {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         Client other = (Client) obj;
         return Objects.equals(id, other.id);
     }

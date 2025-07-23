@@ -36,7 +36,9 @@ public class ClientDTO {
 
     }
 
-    public ClientDTO(Long id, String name, String cpf, LocalDate birthDate, String email, String phoneNumber, Double appointmentPrice, Integer appointmentFrequency, LocalDateTime treatmentStartDate, LocalDateTime treatmentEndDate, Long appointmentDurationInMinutes) {
+    public ClientDTO(Long id, String name, String cpf, LocalDate birthDate, String email, String phoneNumber,
+                     Double appointmentPrice, Integer appointmentFrequency, LocalDateTime treatmentStartDate,
+                     LocalDateTime treatmentEndDate, Long appointmentDurationInMinutes) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
