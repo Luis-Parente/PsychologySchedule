@@ -30,7 +30,8 @@ public class ClientController {
 
     @Operation(description = "Retrieve a page of clients", summary = "Return clients paged")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Clients retrieved successfully")})
+            @ApiResponse(responseCode = "200", description = "Clients retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
     @GetMapping(produces = "application/json")
     public ResponseEntity<Page<ClientDTO>> findAll(Pageable pageable) {
         Page<ClientDTO> result = service.findAll(pageable);

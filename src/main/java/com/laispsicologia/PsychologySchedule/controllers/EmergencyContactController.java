@@ -30,7 +30,8 @@ public class EmergencyContactController {
 
     @Operation(description = "Retrieve a page of emergency contacts", summary = "Return emergency contacts paged")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "EmergencyContacts retrieved successfully")})
+            @ApiResponse(responseCode = "200", description = "EmergencyContacts retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
     @GetMapping(produces = "application/json")
     public ResponseEntity<Page<EmergencyContactDTO>> findAll(Pageable pageable) {
         Page<EmergencyContactDTO> result = service.findAll(pageable);

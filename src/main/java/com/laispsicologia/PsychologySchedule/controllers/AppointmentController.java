@@ -32,7 +32,8 @@ public class AppointmentController {
 
     @Operation(description = "Retrieve a page of appointment filtered by date", summary = "Return appointments paged")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Appointments retrieved successfully")})
+            @ApiResponse(responseCode = "200", description = "Appointments retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
     @GetMapping(value = "/findByDate", produces = "application/json")
     public ResponseEntity<Page<AppointmentDTO>> findFilteredByDate(
             @RequestParam(defaultValue = "") LocalDateTime firstDate,
