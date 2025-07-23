@@ -66,7 +66,13 @@ public class AppointmentService {
         return newAppointment;
     }
 
-    private void copyDtoToEntity(AppointmentDTO dto, Appointment entity){
+    public void delete(Long id) {
+        Appointment entity = getEntityById(id);
+        entity.softDelete();
+        repository.save(entity);
+    }
+
+    private void copyDtoToEntity(AppointmentDTO dto, Appointment entity) {
         Client client = clientRepository.findByIdActive(dto.getClientId())
                 .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
 
@@ -76,7 +82,6 @@ public class AppointmentService {
         entity.setPrice(dto.getPrice());
         entity.setClient(client);
     }
-
 
     private Appointment getEntityById(Long id) {
         return repository.findByIdActive(id)

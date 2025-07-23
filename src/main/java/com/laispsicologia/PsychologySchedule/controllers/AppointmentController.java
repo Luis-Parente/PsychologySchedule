@@ -2,7 +2,6 @@ package com.laispsicologia.PsychologySchedule.controllers;
 
 import com.laispsicologia.PsychologySchedule.dto.AppointmentDTO;
 import com.laispsicologia.PsychologySchedule.dto.AppointmentMinDTO;
-import com.laispsicologia.PsychologySchedule.dto.ClientDTO;
 import com.laispsicologia.PsychologySchedule.services.AppointmentService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -26,15 +25,16 @@ public class AppointmentController {
 
     @GetMapping(value = "/findByDate")
     public ResponseEntity<Page<AppointmentDTO>> findFilteredByDate(@RequestParam(defaultValue = "") LocalDateTime firstDate, @RequestParam(defaultValue = "") LocalDateTime lastDate,
-                                                                      Pageable pageable) {
+                                                                   Pageable pageable) {
         Page<AppointmentDTO> appointmentsPaged = service.findFilteredByDate(firstDate, lastDate, pageable);
         return ResponseEntity.ok(appointmentsPaged);
     }
 
     @PostMapping
-    public ResponseEntity<AppointmentDTO> insert(@Valid @RequestBody AppointmentMinDTO dto){
+    public ResponseEntity<AppointmentDTO> insert(@Valid @RequestBody AppointmentMinDTO dto) {
         AppointmentDTO newAppointment = service.insert(dto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newAppointment.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newAppointment.getId())
+                .toUri();
         return ResponseEntity.created(uri).body(newAppointment);
     }
 
@@ -44,4 +44,9 @@ public class AppointmentController {
         return ResponseEntity.ok().body(dto);
     }
 
+    @DeleteMapping(value = "/{id}", produces = "application/json")
+    public ResponseEntity<Void> update(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
