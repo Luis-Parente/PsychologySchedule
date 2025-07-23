@@ -1,0 +1,671 @@
+{
+	"info": {
+		"_postman_id": "94b65f62-c421-44e0-b785-6ca8fe26af02",
+		"name": "PsychologySchedule",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39070626"
+	},
+	"item": [
+		{
+			"name": "Appointment",
+			"item": [
+				{
+					"name": "Appointments by date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/appointments/findByDate",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"appointments",
+								"findByDate"
+							],
+							"query": [
+								{
+									"key": "firstDate",
+									"value": "2025-08-01T00:00:00",
+									"disabled": true
+								},
+								{
+									"key": "lastDate",
+									"value": "2025-08-31T23:59:00",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Appointment by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/appointments/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"appointments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New appointment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"appointmentPrice\": 100.0,\r\n    \"startTime\": \"2025-07-25T10:30:00\",\r\n    \"paid\": false,\r\n    \"clientId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/appointments",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"appointments"
+							],
+							"query": [
+								{
+									"key": "initialDate",
+									"value": "2025-07-24T16:00:00Z",
+									"disabled": true
+								},
+								{
+									"key": "finalDate",
+									"value": "2025-07-24T16:00:00",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update appointment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startTime\": \"2025-07-24T10:00:00\",\r\n    \"endTime\": \"2025-07-24T10:30:00\",\r\n    \"appointmentStatus\": \"COMPLETED\",\r\n    \"price\": 150.0,\r\n    \"paid\": true,\r\n    \"clientId\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/appointments/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"appointments",
+								"1"
+							],
+							"query": [
+								{
+									"key": "initialDate",
+									"value": "2025-07-24T16:00:00Z",
+									"disabled": true
+								},
+								{
+									"key": "finalDate",
+									"value": "2025-07-24T16:00:00",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Appointment by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/appointments/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"appointments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "Client by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/clients/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients",
+								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All clients paged",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/clients",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New client\",\r\n    \"cpf\": \"444.444.444-44\",\r\n\t\"birthDate\": \"2002-03-08\",\r\n\t\"email\": \"new_email@gmail.com\",\r\n\t\"phoneNumber\": \"91111-1111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/clients",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update client",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New client\",\r\n    \"cpf\": \"444.444.444-44\",\r\n\t\"birthDate\": \"2002-03-08\",\r\n\t\"email\": \"new_email@gmail.com\",\r\n\t\"phoneNumber\": \"91111-1111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/clients/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients",
+								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Client by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/clients/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients",
+								"3"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EmergencyContact",
+			"item": [
+				{
+					"name": "EmergencyContact by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/contacts/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"contacts",
+								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All emergencyContacts paged",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/contacts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"contacts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New emergencyContact",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"João da Silva\",\r\n    \"email\": \"joao.silva@example.com\",\r\n    \"phoneNumber\": \"(11) 91234-5678\",\r\n    \"relationship\": \"PARENT\",\r\n    \"clientId\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/contacts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"contacts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update emergencyContact",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"João da Silva\",\r\n    \"email\": \"joao.silva@example.com\",\r\n    \"phoneNumber\": \"(11) 91234-5678\",\r\n    \"relationship\": \"PARENT\",\r\n    \"clientId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/contacts/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"contacts",
+								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EmergencyContact by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/contacts/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"contacts",
+								"3"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Professional",
+			"item": [
+				{
+					"name": "Professional by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/professionals/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"professionals",
+								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All professionals paged",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/professionals",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"professionals"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New professional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Maria Oliveira\",\r\n    \"registrationNumber\": \"CRP 06/123456\",\r\n    \"email\": \"maria.oliveira@exemplo.com\",\r\n    \"phoneNumber\": \"(11) 91234-5678\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/professionals",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"professionals"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update professional",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Maria Oliveira\",\r\n    \"registrationNumber\": \"CRP 06/123456\",\r\n    \"email\": \"maria.oliveira@exemplo.com\",\r\n    \"phoneNumber\": \"(11) 91234-5678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/professionals/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"professionals",
+								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Professional by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/professionals/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"professionals",
+								"3"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
