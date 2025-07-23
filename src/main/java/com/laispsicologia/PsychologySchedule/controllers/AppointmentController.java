@@ -42,6 +42,17 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentsPaged);
     }
 
+    @Operation(description = "Retrieve a client appointment by id", summary = "Return appointment by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Appointment retrieved successfully", content = @Content(schema = @Schema(implementation = AppointmentDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public ResponseEntity<AppointmentDTO> findById(@PathVariable Long id) {
+        AppointmentDTO result = service.findById(id);
+        return ResponseEntity.ok(result);
+    }
+
     @Operation(description = "Insert new appointment", summary = "Insert appointment")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Appointment created successfully", content = @Content(schema = @Schema(implementation = AppointmentDTO.class))),
@@ -50,8 +61,7 @@ public class AppointmentController {
     @PostMapping(produces = "application/json")
     public ResponseEntity<AppointmentDTO> insert(@Valid @RequestBody AppointmentMinDTO dto) {
         AppointmentDTO newAppointment = service.insert(dto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newAppointment.getId())
-                .toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newAppointment.getId()).toUri();
         return ResponseEntity.created(uri).body(newAppointment);
     }
 

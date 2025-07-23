@@ -2,6 +2,7 @@ package com.laispsicologia.PsychologySchedule.services;
 
 import com.laispsicologia.PsychologySchedule.dto.AppointmentDTO;
 import com.laispsicologia.PsychologySchedule.dto.AppointmentMinDTO;
+import com.laispsicologia.PsychologySchedule.dto.ClientDTO;
 import com.laispsicologia.PsychologySchedule.entities.Appointment;
 import com.laispsicologia.PsychologySchedule.entities.Client;
 import com.laispsicologia.PsychologySchedule.entities.enums.AppointmentStatus;
@@ -37,6 +38,11 @@ public class AppointmentService {
         }
         Page<Appointment> result = repository.findFilteredByDate(firstDate, lastDate, pageable);
         return result.map(AppointmentDTO::new);
+    }
+
+    public AppointmentDTO findById(Long id) {
+        Appointment entity = getEntityById(id);
+        return new AppointmentDTO(entity);
     }
 
     public AppointmentDTO insert(AppointmentMinDTO dto) {
