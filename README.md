@@ -1,4 +1,7 @@
 # PsychologySchedule
+This project was developed with a focus on the management system for professionals and scheduling. It was originally built for a psychology clinic but can be adapted for various types of services.
+It provides endpoints for managing appointments and registering new consultations.
+The project is currently being updated to include new features.
 
 ## 📋 Requirements
 
