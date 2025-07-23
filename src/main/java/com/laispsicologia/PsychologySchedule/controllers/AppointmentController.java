@@ -2,7 +2,14 @@ package com.laispsicologia.PsychologySchedule.controllers;
 
 import com.laispsicologia.PsychologySchedule.dto.AppointmentDTO;
 import com.laispsicologia.PsychologySchedule.dto.AppointmentMinDTO;
+import com.laispsicologia.PsychologySchedule.dto.CustomErrorDTO;
+import com.laispsicologia.PsychologySchedule.dto.ValidationErrorDTO;
 import com.laispsicologia.PsychologySchedule.services.AppointmentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +30,24 @@ public class AppointmentController {
     @Autowired
     private AppointmentService service;
 
-    @GetMapping(value = "/findByDate")
-    public ResponseEntity<Page<AppointmentDTO>> findFilteredByDate(@RequestParam(defaultValue = "") LocalDateTime firstDate, @RequestParam(defaultValue = "") LocalDateTime lastDate,
-                                                                   Pageable pageable) {
+    @Operation(description = "Retrieve a page of appointment filtered by date", summary = "Return appointments paged")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Appointments retrieved successfully")})
+    @GetMapping(value = "/findByDate", produces = "application/json")
+    public ResponseEntity<Page<AppointmentDTO>> findFilteredByDate(
+            @RequestParam(defaultValue = "") LocalDateTime firstDate,
+            @RequestParam(defaultValue = "") LocalDateTime lastDate,
+            Pageable pageable) {
         Page<AppointmentDTO> appointmentsPaged = service.findFilteredByDate(firstDate, lastDate, pageable);
         return ResponseEntity.ok(appointmentsPaged);
     }
 
-    @PostMapping
+    @Operation(description = "Insert new appointment", summary = "Insert appointment")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Appointment created successfully", content = @Content(schema = @Schema(implementation = AppointmentDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
+            @ApiResponse(responseCode = "422", description = "Unprocessable Entity", content = @Content(schema = @Schema(implementation = ValidationErrorDTO.class)))})
+    @PostMapping(produces = "application/json")
     public ResponseEntity<AppointmentDTO> insert(@Valid @RequestBody AppointmentMinDTO dto) {
         AppointmentDTO newAppointment = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newAppointment.getId())
@@ -38,12 +55,23 @@ public class AppointmentController {
         return ResponseEntity.created(uri).body(newAppointment);
     }
 
+    @Operation(description = "Update a appointment data", summary = "Update appointment")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Appointment updated successfully", content = @Content(schema = @Schema(implementation = AppointmentDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
+            @ApiResponse(responseCode = "422", description = "Unprocessable Entity", content = @Content(schema = @Schema(implementation = ValidationErrorDTO.class)))})
     @PutMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<AppointmentDTO> update(@PathVariable Long id, @Valid @RequestBody AppointmentDTO dto) {
         dto = service.update(id, dto);
-        return ResponseEntity.ok().body(dto);
+        return ResponseEntity.ok(dto);
     }
 
+    @Operation(description = "Delete a appointment filtered by id", summary = "Delete appointment by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Appointment deleted successfully"),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
     @DeleteMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Void> update(@PathVariable Long id) {
         service.delete(id);

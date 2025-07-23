@@ -34,7 +34,7 @@ public class ClientController {
     @GetMapping(produces = "application/json")
     public ResponseEntity<Page<ClientDTO>> findAll(Pageable pageable) {
         Page<ClientDTO> result = service.findAll(pageable);
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok(result);
     }
 
     @Operation(description = "Retrieve a client filtered by id", summary = "Return client by id")
@@ -45,7 +45,7 @@ public class ClientController {
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<ClientDTO> findById(@PathVariable Long id) {
         ClientDTO result = service.findById(id);
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok(result);
     }
 
     @Operation(description = "Insert new client", summary = "Insert client")
@@ -66,10 +66,10 @@ public class ClientController {
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "422", description = "Unprocessable Entity", content = @Content(schema = @Schema(implementation = ValidationErrorDTO.class)))})
-    @PutMapping(value = "{id}", produces = "application/json")
+    @PutMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<ClientDTO> update(@PathVariable Long id, @Valid @RequestBody ClientDTO dto) {
         dto = service.update(id, dto);
-        return ResponseEntity.ok().body(dto);
+        return ResponseEntity.ok(dto);
     }
 
     @Operation(description = "Delete a client filtered by id", summary = "Delete client by id")
@@ -77,7 +77,7 @@ public class ClientController {
             @ApiResponse(responseCode = "204", description = "Client deleted successfully"),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
-    @DeleteMapping(value = "{id}", produces = "application/json")
+    @DeleteMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

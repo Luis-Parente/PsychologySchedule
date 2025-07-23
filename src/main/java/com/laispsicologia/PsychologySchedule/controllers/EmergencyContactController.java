@@ -34,7 +34,7 @@ public class EmergencyContactController {
     @GetMapping(produces = "application/json")
     public ResponseEntity<Page<EmergencyContactDTO>> findAll(Pageable pageable) {
         Page<EmergencyContactDTO> result = service.findAll(pageable);
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok(result);
     }
 
     @Operation(description = "Retrieve a emergency contact filtered by id", summary = "Return emergency contact by id")
@@ -45,7 +45,7 @@ public class EmergencyContactController {
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<EmergencyContactDTO> findById(@PathVariable Long id) {
         EmergencyContactDTO result = service.findById(id);
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok(result);
     }
 
     @Operation(description = "Insert new emergency contact", summary = "Insert emergency contact")
@@ -66,10 +66,10 @@ public class EmergencyContactController {
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "422", description = "Unprocessable Entity", content = @Content(schema = @Schema(implementation = ValidationErrorDTO.class)))})
-    @PutMapping(value = "{id}", produces = "application/json")
+    @PutMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<EmergencyContactDTO> update(@PathVariable Long id, @Valid @RequestBody EmergencyContactDTO dto) {
         dto = service.update(id, dto);
-        return ResponseEntity.ok().body(dto);
+        return ResponseEntity.ok(dto);
     }
 
     @Operation(description = "Delete a emergency contact filtered by id", summary = "Delete emergency contact by id")
@@ -77,7 +77,7 @@ public class EmergencyContactController {
             @ApiResponse(responseCode = "204", description = "EmergencyContact deleted successfully"),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
-    @DeleteMapping(value = "{id}", produces = "application/json")
+    @DeleteMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
