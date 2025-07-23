@@ -1,7 +1,7 @@
 package com.laispsicologia.PsychologySchedule.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDateTime;
 
@@ -13,11 +13,11 @@ public class AppointmentMinDTO {
     @NotNull(message = "Required field")
     private Boolean paid;
 
+    @Positive(message = "Client id must be a positive number")
     @NotNull(message = "Required field")
     private Long clientId;
 
     public AppointmentMinDTO() {
-
     }
 
     public AppointmentMinDTO(LocalDateTime startTime, Boolean paid, Long clientId) {

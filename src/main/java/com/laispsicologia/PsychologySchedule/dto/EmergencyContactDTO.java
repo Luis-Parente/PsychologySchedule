@@ -1,14 +1,27 @@
 package com.laispsicologia.PsychologySchedule.dto;
 
 import com.laispsicologia.PsychologySchedule.entities.EmergencyContact;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class EmergencyContactDTO {
 
     private Long id;
+
+    @Size(min = 3, max = 80, message = "Name must be between 3 and 80 characters")
+    @NotBlank(message = "Required field")
     private String name;
+
+    @Email(message = "Must be a well-formed email address")
     private String email;
+
+    @NotBlank(message = "Required field")
     private String phoneNumber;
     private String relationship;
+
+    @NotNull(message = "Required field")
     private Long clientId;
 
     public EmergencyContactDTO() {

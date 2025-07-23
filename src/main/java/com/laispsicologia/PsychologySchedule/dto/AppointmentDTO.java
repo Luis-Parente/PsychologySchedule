@@ -1,17 +1,30 @@
 package com.laispsicologia.PsychologySchedule.dto;
 
 import com.laispsicologia.PsychologySchedule.entities.Appointment;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDateTime;
 
 public class AppointmentDTO {
 
     private Long id;
+
+    @NotNull(message = "Required field")
     private LocalDateTime startTime;
+
+    @NotNull(message = "Required field")
     private LocalDateTime endTime;
+
+    @NotNull(message = "Required field")
     private String appointmentStatus;
     private Double price;
+
+    @NotNull(message = "Required field")
     private Boolean paid;
+
+    @Positive(message = "Client id must be a positive number")
+    @NotNull(message = "Required field")
     private Long clientId;
 
     public AppointmentDTO() {

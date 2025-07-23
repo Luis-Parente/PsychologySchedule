@@ -1,12 +1,25 @@
 package com.laispsicologia.PsychologySchedule.dto;
 
 import com.laispsicologia.PsychologySchedule.entities.Professional;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class ProfessionalDTO {
+
     private Long id;
+
+    @Size(min = 3, max = 80, message = "Name must be between 3 and 80 characters")
+    @NotBlank(message = "Required field")
     private String name;
+
+    @NotBlank(message = "Required field")
     private String registrationNumber;
+
+    @Email(message = "Must be a well-formed email address")
     private String email;
+
+    @NotBlank(message = "Required field")
     private String phoneNumber;
 
     public ProfessionalDTO() {
