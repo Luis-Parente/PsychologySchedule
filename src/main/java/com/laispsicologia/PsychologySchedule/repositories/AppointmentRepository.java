@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-    @Query(nativeQuery = true, value = "SELECT * FROM tb_appointment WHERE start_time BETWEEN :initialDate AND :finalDate AND deleted_at IS NULL")
-    Page<Appointment> searchByDate(LocalDateTime initialDate, LocalDateTime finalDate, Pageable pageable);
+    @Query(nativeQuery = true, value = "SELECT * FROM tb_appointment WHERE start_time BETWEEN :firstDate AND :lastDate AND deleted_at IS NULL")
+    Page<Appointment> findFilteredByDate(LocalDateTime firstDate, LocalDateTime lastDate, Pageable pageable);
 
-    @Query(nativeQuery = true, value = "SELECT EXISTS (SELECT 1 FROM tb_appointment WHERE ((:startDate BETWEEN start_time AND end_time) " +
-            "OR (:endDate BETWEEN start_time AND end_time AND :endDate != start_time))" +
+    @Query(nativeQuery = true, value = "SELECT EXISTS (SELECT 1 FROM tb_appointment WHERE ((:startTime BETWEEN start_time AND end_time) " +
+            "OR (:endTime BETWEEN start_time AND end_time AND :endTime != start_time))" +
             "AND appointment_status = 3 " +
             "AND deleted_at IS NULL)")
-    Boolean verifyAppointmentAvailability(LocalDateTime startDate, LocalDateTime endDate);
+    Boolean verifyAppointmentAvailability(LocalDateTime startTime, LocalDateTime endTime);
 }

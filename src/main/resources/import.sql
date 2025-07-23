@@ -7,4 +7,4 @@ INSERT INTO tb_emergency_contact(name, email, phone_number, relationship, client
 INSERT INTO tb_emergency_contact(name, email, phone_number, relationship, client_id, created_at, updated_at) VALUES ('Isabel Amaro', 'isabel@gmail.com', '3214-3214', 0, 2, '2025-07-22T20:00:00Z', '2025-07-22T20:00:00Z');
 
 INSERT INTO tb_appointment(start_time, end_time, appointment_status, price, paid, client_id, created_at, updated_at) VALUES ('2025-08-01T13:00:00', '2025-08-01T14:00:00', 3, 80.0, false, 1, '2025-07-22T19:00:00Z', '2025-07-22T19:00:00Z');
-INSERT INTO tb_appointment(start_time, end_time, appointment_status, price, paid, client_id, created_at, updated_at) VALUES ('2025-07-24T16:00:00', '2025-07-24T17:00:00', 3, 85.0, true, 2, '2025-07-22T20:00:00Z', '2025-07-22T20:00:00Z');
+INSERT INTO tb_appointment(start_time, end_time, appointment_status, price, paid, client_id, created_at, updated_at) VALUES ('2025-08-01T16:00:00', '2025-08-01T17:00:00', 3, 85.0, true, 2, '2025-07-22T20:00:00Z', '2025-07-22T20:00:00Z');
