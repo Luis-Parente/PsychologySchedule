@@ -15,4 +15,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM tb_client WHERE id = :id AND deleted_at IS NULL")
     Optional<Client> findByIdActive(Long id);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM tb_client WHERE UPPER(name) LIKE CONCAT('%', UPPER(:name), '%') AND deleted_at IS NULL")
+    Page<Client> findByName(String name, Pageable pageable);
 }

@@ -1,6 +1,7 @@
 package com.laispsicologia.PsychologySchedule.services;
 
 import com.laispsicologia.PsychologySchedule.dto.ClientDTO;
+import com.laispsicologia.PsychologySchedule.dto.ClientMinDTO;
 import com.laispsicologia.PsychologySchedule.entities.Client;
 import com.laispsicologia.PsychologySchedule.repositories.ClientRepository;
 import com.laispsicologia.PsychologySchedule.services.exceptions.ResourceNotFoundException;
@@ -15,9 +16,12 @@ public class ClientService {
     @Autowired
     private ClientRepository repository;
 
-    public Page<ClientDTO> findAll(Pageable pageable) {
-        return repository.findAllActive(pageable)
-                .map(ClientDTO::new);
+    public Page<ClientMinDTO> findAll(Pageable pageable) {
+        return repository.findAllActive(pageable).map(ClientMinDTO::new);
+    }
+
+    public Page<ClientMinDTO> findByName(String name, Pageable pageable) {
+        return repository.findByName(name, pageable).map(ClientMinDTO::new);
     }
 
     public ClientDTO findById(Long id) {
@@ -60,5 +64,4 @@ public class ClientService {
         entity.setTreatmentEndDate(dto.getTreatmentEndDate());
         entity.setAppointmentDurationInMinutes(dto.getAppointmentDurationInMinutes());
     }
-
 }

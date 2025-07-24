@@ -1,6 +1,7 @@
 package com.laispsicologia.PsychologySchedule.controllers;
 
 import com.laispsicologia.PsychologySchedule.dto.ClientDTO;
+import com.laispsicologia.PsychologySchedule.dto.ClientMinDTO;
 import com.laispsicologia.PsychologySchedule.dto.CustomErrorDTO;
 import com.laispsicologia.PsychologySchedule.dto.ValidationErrorDTO;
 import com.laispsicologia.PsychologySchedule.services.ClientService;
@@ -33,8 +34,18 @@ public class ClientController {
             @ApiResponse(responseCode = "200", description = "Clients retrieved successfully"),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
     @GetMapping(produces = "application/json")
-    public ResponseEntity<Page<ClientDTO>> findAll(Pageable pageable) {
-        Page<ClientDTO> result = service.findAll(pageable);
+    public ResponseEntity<Page<ClientMinDTO>> findAll(Pageable pageable) {
+        Page<ClientMinDTO> result = service.findAll(pageable);
+        return ResponseEntity.ok(result);
+    }
+
+    @Operation(description = "Retrieve a page of clients filtered by name", summary = "Return clients paged filtered by name")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Clients retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
+    @GetMapping(value = "/findByName",produces = "application/json")
+    public ResponseEntity<Page<ClientMinDTO>> findByName(@RequestParam String name, Pageable pageable) {
+        Page<ClientMinDTO> result = service.findByName(name, pageable);
         return ResponseEntity.ok(result);
     }
 
