@@ -1,0 +1,97 @@
+package com.laispsicologia.PsychologySchedule.emergencyContact.dto;
+
+import com.laispsicologia.PsychologySchedule.emergencyContact.entity.EmergencyContact;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+public class EmergencyContactDTO {
+
+    private Long id;
+
+    @Size(min = 3, max = 80, message = "Name must be between 3 and 80 characters")
+    @NotBlank(message = "Required field")
+    private String name;
+
+    @Email(message = "Must be a well-formed email address")
+    private String email;
+
+    @NotBlank(message = "Required field")
+    private String phoneNumber;
+    private String relationship;
+
+    @NotNull(message = "Required field")
+    private Long clientId;
+
+    public EmergencyContactDTO() {
+
+    }
+
+    public EmergencyContactDTO(Long id, String name, String email, String phoneNumber, String relationship,
+                               Long clientId) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.relationship = relationship;
+        this.clientId = clientId;
+    }
+
+    public EmergencyContactDTO(EmergencyContact entity) {
+        this.id = entity.getId();
+        this.name = entity.getName();
+        this.email = entity.getEmail();
+        this.phoneNumber = entity.getPhoneNumber();
+        this.relationship = entity.getRelationship().toString();
+        this.clientId = entity.getClient().getId();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getRelationship() {
+        return relationship;
+    }
+
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
+    }
+
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
+}
