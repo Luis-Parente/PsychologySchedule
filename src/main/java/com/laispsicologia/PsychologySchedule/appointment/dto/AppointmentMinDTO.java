@@ -1,5 +1,6 @@
 package com.laispsicologia.PsychologySchedule.appointment.dto;
 
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 
 public class AppointmentMinDTO {
 
+    @FutureOrPresent(message = "Date must be a future date")
     @NotNull(message = "Required field")
     private LocalDateTime startTime;
 
