@@ -64,7 +64,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"appointmentPrice\": 100.0,\r\n    \"startTime\": \"2025-08-25T10:30:00\",\r\n    \"paid\": false,\r\n    \"clientId\": 1\r\n}",
+							"raw": "{\r\n    \"startTime\": \"2025-07-29T10:30:00\",\r\n    \"paid\": false,\r\n    \"clientId\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
