@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping(value = "/appointments")
+@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "Appointments", description = "Controller for Appointments")
 public class AppointmentController {
 
@@ -33,7 +34,7 @@ public class AppointmentController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Appointments retrieved successfully"),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
-    @GetMapping(value = "/findByDate", produces = "application/json")
+    @GetMapping(produces = "application/json")
     public ResponseEntity<Page<AppointmentDTO>> findFilteredByDate(
             @RequestParam(defaultValue = "") LocalDateTime firstDate,
             @RequestParam(defaultValue = "") LocalDateTime lastDate,
