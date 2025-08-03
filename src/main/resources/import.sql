@@ -1,3 +1,5 @@
+INSERT INTO tb_user(name, email, password, role) VALUES ('Paulo', 'paulo@gmail.com', '$2a$10$50LdbNrJl5SLXQbCuZXCmO/47ufF6zU4iwIOCCPb.gBoRSUdXsn2O', 0);
+
 INSERT INTO tb_professional(name, registration_number, email, phone_number, created_at, updated_at) VALUES ('Mauro Silva', 'CRP SP/123456', 'mauro@gmail.com', '91234-1234', '2025-07-13T17:00:00Z', '2025-07-13T17:00:00Z');
 
 INSERT INTO tb_client(name, cpf, birth_date, email, phone_number, appointment_price, appointment_frequency, treatment_start_date, appointment_duration_in_minutes, created_at, updated_at) VALUES ('Lucas Souza', '123.123.123-12', '1999-06-24', 'lucas@gmail.com', '94321-4321', 80.0, 7,'2025-08-01T13:00:00', 60, '2025-07-22T19:00:00Z', '2025-07-22T19:00:00Z');

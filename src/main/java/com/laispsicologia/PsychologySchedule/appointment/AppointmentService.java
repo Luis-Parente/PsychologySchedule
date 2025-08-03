@@ -3,9 +3,9 @@ package com.laispsicologia.PsychologySchedule.appointment;
 import com.laispsicologia.PsychologySchedule.appointment.dto.AppointmentDTO;
 import com.laispsicologia.PsychologySchedule.appointment.dto.AppointmentMinDTO;
 import com.laispsicologia.PsychologySchedule.appointment.entity.Appointment;
-import com.laispsicologia.PsychologySchedule.client.entity.Client;
 import com.laispsicologia.PsychologySchedule.appointment.entity.AppointmentStatus;
 import com.laispsicologia.PsychologySchedule.client.ClientRepository;
+import com.laispsicologia.PsychologySchedule.client.entity.Client;
 import com.laispsicologia.PsychologySchedule.exceptions.InvalidDateException;
 import com.laispsicologia.PsychologySchedule.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
@@ -61,6 +61,13 @@ public class AppointmentService {
         return new AppointmentDTO(repository.save(entity));
     }
 
+    @CacheEvict(value = "appointmentList", allEntries = true)
+    public void delete(Long id) {
+        Appointment entity = getEntityById(id);
+        entity.softDelete();
+        repository.save(entity);
+    }
+
     private Appointment createNewAppoint(AppointmentMinDTO dto) {
         Appointment newAppointment = new Appointment();
         Client client = clientRepository.findByIdActive(dto.getClientId())
@@ -73,12 +80,6 @@ public class AppointmentService {
         newAppointment.setPaid(dto.getPaid());
         newAppointment.setClient(client);
         return newAppointment;
-    }
-
-    public void delete(Long id) {
-        Appointment entity = getEntityById(id);
-        entity.softDelete();
-        repository.save(entity);
     }
 
     private void copyDtoToEntity(AppointmentDTO dto, Appointment entity) {
