@@ -10,6 +10,8 @@ import com.laispsicologia.PsychologySchedule.exceptions.InvalidDateException;
 import com.laispsicologia.PsychologySchedule.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,7 @@ public class AppointmentService {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Cacheable(value = "appointmentList")
     public Page<AppointmentDTO> findFilteredByDate(LocalDateTime firstDate, LocalDateTime lastDate, Pageable pageable) {
         if (firstDate == null) {
             firstDate = LocalDateTime.now().withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0);
@@ -43,6 +46,7 @@ public class AppointmentService {
         return new AppointmentDTO(entity);
     }
 
+    @CacheEvict(value = "appointmentList", allEntries = true)
     public AppointmentDTO insert(AppointmentMinDTO dto) {
         Appointment newAppointment = createNewAppoint(dto);
         if (repository.verifyAppointmentAvailability(newAppointment.getStartTime(), newAppointment.getEndTime()))
@@ -50,6 +54,7 @@ public class AppointmentService {
         return new AppointmentDTO(repository.save(newAppointment));
     }
 
+    @CacheEvict(value = "appointmentList", allEntries = true)
     public AppointmentDTO update(Long id, @Valid AppointmentDTO dto) {
         Appointment entity = getEntityById(id);
         copyDtoToEntity(dto, entity);

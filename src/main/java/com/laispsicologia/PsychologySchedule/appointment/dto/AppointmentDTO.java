@@ -4,9 +4,10 @@ import com.laispsicologia.PsychologySchedule.appointment.entity.Appointment;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class AppointmentDTO {
+public class AppointmentDTO implements Serializable {
 
     private Long id;
 
@@ -27,12 +28,14 @@ public class AppointmentDTO {
     @NotNull(message = "Required field")
     private Long clientId;
 
+    private String clientName;
+
     public AppointmentDTO() {
 
     }
 
     public AppointmentDTO(Long id, LocalDateTime startTime, LocalDateTime endTime, String appointmentStatus,
-                          Double price, Boolean paid, Long clientId) {
+                          Double price, Boolean paid, Long clientId, String clientName) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -40,6 +43,7 @@ public class AppointmentDTO {
         this.price = price;
         this.paid = paid;
         this.clientId = clientId;
+        this.clientName = clientName;
     }
 
     public AppointmentDTO(Appointment entity) {
@@ -50,6 +54,7 @@ public class AppointmentDTO {
         this.price = entity.getPrice();
         this.paid = entity.getPaid();
         this.clientId = entity.getClient().getId();
+        this.clientName = entity.getClient().getName();
     }
 
     public Long getId() {
@@ -106,5 +111,13 @@ public class AppointmentDTO {
 
     public void setClientId(Long clientId) {
         this.clientId = clientId;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 }
