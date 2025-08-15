@@ -1,12 +1,16 @@
 package com.laispsicologia.PsychologySchedule.client.dto;
 
 import com.laispsicologia.PsychologySchedule.client.entity.Client;
+import com.laispsicologia.PsychologySchedule.emergencyContact.dto.EmergencyContactDTO;
+import com.laispsicologia.PsychologySchedule.emergencyContact.entity.EmergencyContact;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientDTO {
 
@@ -31,6 +35,8 @@ public class ClientDTO {
     private LocalDateTime treatmentStartDate;
     private LocalDateTime treatmentEndDate;
     private Long appointmentDurationInMinutes;
+
+    private List<EmergencyContactDTO> contacts = new ArrayList<>();
 
     public ClientDTO() {
 
@@ -64,6 +70,10 @@ public class ClientDTO {
         this.treatmentStartDate = entity.getTreatmentStartDate();
         this.treatmentEndDate = entity.getTreatmentEndDate();
         this.appointmentDurationInMinutes = entity.getAppointmentDurationInMinutes();
+
+        for(EmergencyContact contact : entity.getContacts()){
+            this.contacts.add(new EmergencyContactDTO(contact));
+        }
     }
 
     public Long getId() {
@@ -152,5 +162,9 @@ public class ClientDTO {
 
     public void setAppointmentDurationInMinutes(Long appointmentDurationInMinutes) {
         this.appointmentDurationInMinutes = appointmentDurationInMinutes;
+    }
+
+    public List<EmergencyContactDTO> getContacts() {
+        return contacts;
     }
 }

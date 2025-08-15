@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
@@ -18,4 +19,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM tb_client WHERE UPPER(name) LIKE CONCAT('%', UPPER(:name), '%') AND deleted_at IS NULL")
     Page<Client> findByName(String name, Pageable pageable);
+
+    @Query("SELECT c FROM Client c LEFT JOIN FETCH c.contacts WHERE c.id = :id")
+    Optional<Client> findClientWithContacts(@Param("id") Long id);
 }

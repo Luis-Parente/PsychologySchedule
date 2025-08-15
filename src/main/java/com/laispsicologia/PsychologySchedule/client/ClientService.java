@@ -47,7 +47,7 @@ public class ClientService {
     }
 
     private Client getEntityById(Long id) {
-        return repository.findByIdActive(id)
+        return repository.findClientWithContacts(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
     }
 
