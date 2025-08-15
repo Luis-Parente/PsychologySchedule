@@ -28,7 +28,6 @@ public class AppointmentService {
     @Autowired
     private ClientRepository clientRepository;
 
-    @Cacheable(value = "appointmentList")
     public Page<AppointmentDTO> findFilteredByDate(LocalDateTime firstDate, LocalDateTime lastDate, Pageable pageable) {
         if (firstDate == null) {
             firstDate = LocalDateTime.now().withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0);
@@ -46,7 +45,6 @@ public class AppointmentService {
         return new AppointmentDTO(entity);
     }
 
-    @CacheEvict(value = "appointmentList", allEntries = true)
     public AppointmentDTO insert(AppointmentMinDTO dto) {
         Appointment newAppointment = createNewAppoint(dto);
         if (repository.verifyAppointmentAvailability(newAppointment.getStartTime(), newAppointment.getEndTime()))
@@ -54,14 +52,12 @@ public class AppointmentService {
         return new AppointmentDTO(repository.save(newAppointment));
     }
 
-    @CacheEvict(value = "appointmentList", allEntries = true)
     public AppointmentDTO update(Long id, @Valid AppointmentDTO dto) {
         Appointment entity = getEntityById(id);
         copyDtoToEntity(dto, entity);
         return new AppointmentDTO(repository.save(entity));
     }
 
-    @CacheEvict(value = "appointmentList", allEntries = true)
     public void delete(Long id) {
         Appointment entity = getEntityById(id);
         entity.softDelete();
@@ -90,6 +86,7 @@ public class AppointmentService {
         entity.setEndTime(dto.getEndTime());
         entity.setAppointmentStatus(AppointmentStatus.valueOf(dto.getAppointmentStatus()));
         entity.setPrice(dto.getPrice());
+        entity.setPaid(dto.getPaid());
         entity.setClient(client);
     }
 

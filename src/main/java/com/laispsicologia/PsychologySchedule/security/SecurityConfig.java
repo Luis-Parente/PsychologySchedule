@@ -38,9 +38,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers(HttpMethod.POST, "users/login").permitAll();
-            auth.requestMatchers(HttpMethod.POST, "/users/register").hasRole("ADMIN");
-            auth.anyRequest().authenticated();
+            auth.anyRequest().permitAll();
         });
         http.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
