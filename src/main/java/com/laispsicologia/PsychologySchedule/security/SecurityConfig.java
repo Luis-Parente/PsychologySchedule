@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,7 +37,8 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authorizeHttpRequests(auth -> {
-            auth.anyRequest().permitAll();
+            auth.requestMatchers("/users/login").permitAll();
+            auth.anyRequest().authenticated();
         });
         http.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

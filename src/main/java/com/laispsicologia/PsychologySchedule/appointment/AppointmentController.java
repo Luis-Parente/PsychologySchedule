@@ -20,7 +20,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping(value = "/appointments")
@@ -63,7 +62,8 @@ public class AppointmentController {
     @PostMapping(produces = "application/json")
     public ResponseEntity<AppointmentDTO> insert(@Valid @RequestBody AppointmentMinDTO dto) {
         AppointmentDTO newAppointment = service.insert(dto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newAppointment.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newAppointment.getId())
+                .toUri();
         return ResponseEntity.created(uri).body(newAppointment);
     }
 

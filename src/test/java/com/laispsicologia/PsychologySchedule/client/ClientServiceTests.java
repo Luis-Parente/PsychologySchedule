@@ -35,8 +35,8 @@ public class ClientServiceTests {
 
         client = ClientFactory.createClient();
 
-        Mockito.when(repository.findByIdActive(existingId)).thenReturn(Optional.of(client));
-        Mockito.when(repository.findByIdActive(nonExistingId)).thenReturn(Optional.empty());
+        Mockito.when(repository.findClientWithContacts(existingId)).thenReturn(Optional.of(client));
+        Mockito.when(repository.findClientWithContacts(nonExistingId)).thenReturn(Optional.empty());
     }
 
     @Test
