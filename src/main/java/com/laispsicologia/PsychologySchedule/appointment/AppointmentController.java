@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @RestController
@@ -36,8 +37,8 @@ public class AppointmentController {
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class)))})
     @GetMapping(produces = "application/json")
     public ResponseEntity<Page<AppointmentDTO>> findFilteredByDate(
-            @RequestParam(defaultValue = "") LocalDateTime firstDate,
-            @RequestParam(defaultValue = "") LocalDateTime lastDate,
+            @RequestParam(defaultValue = "") LocalDate firstDate,
+            @RequestParam(defaultValue = "") LocalDate lastDate,
             Pageable pageable) {
         Page<AppointmentDTO> appointmentsPaged = service.findFilteredByDate(firstDate, lastDate, pageable);
         return ResponseEntity.ok(appointmentsPaged);

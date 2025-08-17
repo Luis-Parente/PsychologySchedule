@@ -10,12 +10,11 @@ import com.laispsicologia.PsychologySchedule.exceptions.InvalidDateException;
 import com.laispsicologia.PsychologySchedule.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 
@@ -28,15 +27,23 @@ public class AppointmentService {
     @Autowired
     private ClientRepository clientRepository;
 
-    public Page<AppointmentDTO> findFilteredByDate(LocalDateTime firstDate, LocalDateTime lastDate, Pageable pageable) {
+    public Page<AppointmentDTO> findFilteredByDate(LocalDate firstDate, LocalDate lastDate, Pageable pageable) {
+        LocalDateTime firstDateWithHour;
+        LocalDateTime lastDateWithHour;
+
         if (firstDate == null) {
-            firstDate = LocalDateTime.now().withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0);
+            firstDateWithHour = LocalDateTime.now().withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0);
+        } else {
+            firstDateWithHour = firstDate.atStartOfDay();
         }
         if (lastDate == null) {
-            lastDate = LocalDateTime.now().with(TemporalAdjusters.lastDayOfMonth()).withHour(23).withMinute(59)
+            lastDateWithHour = LocalDateTime.now().with(TemporalAdjusters.lastDayOfMonth()).withHour(23).withMinute(59)
                     .withSecond(59);
+        } else {
+            lastDateWithHour = lastDate.atStartOfDay().withHour(23).withMinute(59).withSecond(59);
         }
-        Page<Appointment> result = repository.findFilteredByDate(firstDate, lastDate, pageable);
+
+        Page<Appointment> result = repository.findFilteredByDate(firstDateWithHour, lastDateWithHour, pageable);
         return result.map(AppointmentDTO::new);
     }
 
