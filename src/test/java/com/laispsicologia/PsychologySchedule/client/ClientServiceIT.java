@@ -2,70 +2,49 @@ package com.laispsicologia.PsychologySchedule.client;
 
 import com.laispsicologia.PsychologySchedule.client.dto.ClientDTO;
 import com.laispsicologia.PsychologySchedule.client.dto.ClientMinDTO;
-import com.laispsicologia.PsychologySchedule.client.entity.Client;
 import com.laispsicologia.PsychologySchedule.client.testutils.ClientFactory;
 import com.laispsicologia.PsychologySchedule.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+@SpringBootTest
+@Transactional
+public class ClientServiceIT {
 
-@ExtendWith(SpringExtension.class)
-public class ClientServiceTests {
-
-    @InjectMocks
+    @Autowired
     private ClientService service;
 
-    @Mock
+    @Autowired
     private ClientRepository repository;
 
-    private Long existingId, nonExistingId;
+    private Long existingId;
+    private Long invalidId;
 
-    private String validName, invalidName;
-
-    private PageImpl<Client> page;
-
-    private Client client;
+    private String validName;
+    private String invalidName;
 
     private ClientDTO dto;
+
+    private Long countTotalClients;
 
     @BeforeEach
     void setUp() throws Exception {
         existingId = 1L;
-        nonExistingId = 1000L;
+        invalidId = 2000L;
 
-        validName = "Nelson";
-        invalidName = "Carlos";
-
-        client = ClientFactory.createClient();
+        validName = "Lucas";
+        invalidName = "Luis";
 
         dto = ClientFactory.createClientDto();
 
-        page = new PageImpl<>(List.of(client));
-
-        Mockito.when(repository.findAllActive(ArgumentMatchers.any(Pageable.class))).thenReturn(page);
-
-        Mockito.when(repository.findByName(ArgumentMatchers.eq(validName), ArgumentMatchers.any(Pageable.class)))
-                .thenReturn(page);
-        Mockito.when(repository.findByName(ArgumentMatchers.eq(invalidName), ArgumentMatchers.any(Pageable.class)))
-                .thenReturn(Page.empty());
-
-        Mockito.when(repository.findClientWithContacts(existingId)).thenReturn(Optional.of(client));
-        Mockito.when(repository.findClientWithContacts(nonExistingId)).thenReturn(Optional.empty());
-
-        Mockito.when(repository.save(ArgumentMatchers.any())).thenReturn(client);
+        countTotalClients = 2L;
     }
 
     @Test
@@ -73,11 +52,11 @@ public class ClientServiceTests {
         Pageable pageable = PageRequest.of(0, 10);
         Page<ClientMinDTO> result = service.findAll(pageable);
 
-        Assertions.assertNotNull(result);
-        Assertions.assertEquals(client.getName(), result.getContent().get(0).getName());
+        Assertions.assertFalse(result.isEmpty());
+        Assertions.assertTrue(result.getContent().size() <= pageable.getPageSize());
+        Assertions.assertEquals(countTotalClients, result.getTotalElements());
         Assertions.assertEquals(0, result.getNumber());
-        Assertions.assertEquals(1, result.getSize());
-        Mockito.verify(repository, Mockito.times(1)).findAllActive(pageable);
+        Assertions.assertEquals(10, result.getSize());
     }
 
     @Test
@@ -85,11 +64,12 @@ public class ClientServiceTests {
         Pageable pageable = PageRequest.of(0, 10);
         Page<ClientMinDTO> result = service.findByName(validName, pageable);
 
-        Assertions.assertNotNull(result);
-        Assertions.assertEquals(client.getName(), result.getContent().get(0).getName());
+        Assertions.assertFalse(result.isEmpty());
+        Assertions.assertTrue(result.getContent().stream()
+                .allMatch(client -> client.getName().toLowerCase().contains(validName.toLowerCase())));
+        Assertions.assertTrue(result.getContent().size() <= pageable.getPageSize());
         Assertions.assertEquals(0, result.getNumber());
-        Assertions.assertEquals(1, result.getSize());
-        Mockito.verify(repository, Mockito.times(1)).findByName(validName, pageable);
+        Assertions.assertEquals(10, result.getSize());
     }
 
     @Test
@@ -100,10 +80,8 @@ public class ClientServiceTests {
         Assertions.assertTrue(result.isEmpty());
         Assertions.assertEquals(0, result.getTotalElements());
         Assertions.assertEquals(0, result.getContent().size());
-        Assertions.assertTrue(result.getContent().isEmpty());
         Assertions.assertEquals(0, result.getNumber());
-        Assertions.assertEquals(0, result.getSize());
-        Mockito.verify(repository, Mockito.times(1)).findByName(invalidName, pageable);
+        Assertions.assertEquals(10, result.getSize());
     }
 
     @Test
@@ -111,18 +89,15 @@ public class ClientServiceTests {
         ClientDTO result = service.findById(existingId);
 
         Assertions.assertNotNull(result);
+        Assertions.assertEquals("Lucas Souza", result.getName());
+        Assertions.assertEquals("123.123.123-12", result.getCpf());
         Assertions.assertEquals(existingId, result.getId());
-        Assertions.assertEquals(dto.getName(), result.getName());
-        Assertions.assertEquals(dto.getCpf(), result.getCpf());
-        Assertions.assertEquals(dto.getBirthDate(), result.getBirthDate());
-        Assertions.assertEquals(dto.getEmail(), result.getEmail());
-        Assertions.assertEquals(dto.getPhoneNumber(), result.getPhoneNumber());
     }
 
     @Test
     public void findByIdShouldThrowResourceNotFoundWhenIdDoesNotExists() {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-            service.findById(nonExistingId);
+            service.findById(invalidId);
         });
     }
 
@@ -131,7 +106,7 @@ public class ClientServiceTests {
         ClientDTO result = service.insert(dto);
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(existingId, result.getId());
+        Assertions.assertEquals(countTotalClients + 1, result.getId());
         Assertions.assertEquals(dto.getName(), result.getName());
         Assertions.assertEquals(dto.getCpf(), result.getCpf());
         Assertions.assertEquals(dto.getBirthDate(), result.getBirthDate());
@@ -155,7 +130,7 @@ public class ClientServiceTests {
     @Test
     public void updateShouldThrowResourceNotFoundWhenIdDoesNotExists() {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-            service.update(nonExistingId, dto);
+            service.update(invalidId, dto);
         });
     }
 
@@ -169,7 +144,7 @@ public class ClientServiceTests {
     @Test
     public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-            service.delete(nonExistingId);
+            service.delete(invalidId);
         });
     }
 }

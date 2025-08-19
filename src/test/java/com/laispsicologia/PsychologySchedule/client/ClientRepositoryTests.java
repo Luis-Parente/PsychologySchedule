@@ -65,6 +65,8 @@ public class ClientRepositoryTests {
         Page<Client> result = repository.findAllActive(pageable);
 
         Assertions.assertFalse(result.isEmpty());
+        Assertions.assertEquals(0, result.getNumber());
+        Assertions.assertEquals(10, result.getSize());
     }
 
     @Test
@@ -73,6 +75,8 @@ public class ClientRepositoryTests {
 
         Assertions.assertTrue(result.isPresent());
         Assertions.assertEquals(existingId, result.get().getId());
+        Assertions.assertEquals("Lucas Souza", result.get().getName());
+        Assertions.assertEquals("123.123.123-12", result.get().getCpf());
     }
 
     @Test
