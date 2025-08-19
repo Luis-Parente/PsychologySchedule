@@ -20,6 +20,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM tb_client WHERE UPPER(name) LIKE CONCAT('%', UPPER(:name), '%') AND deleted_at IS NULL")
     Page<Client> findByName(String name, Pageable pageable);
 
-    @Query("SELECT c FROM Client c LEFT JOIN FETCH c.contacts WHERE c.id = :id")
+    @Query("SELECT c FROM Client c LEFT JOIN FETCH c.contacts WHERE c.id = :id AND c.deletedAt IS NULL")
     Optional<Client> findClientWithContacts(@Param("id") Long id);
 }
