@@ -99,10 +99,9 @@ public class ClientControllerTests {
 
     @Test
     public void findByIdShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
-        mockMvc.perform(get("/products/{id}", nonExistingId).accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/clients/{id}", nonExistingId).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
-
 
     @Test
     public void insertShouldReturnClientDTO() throws Exception {
