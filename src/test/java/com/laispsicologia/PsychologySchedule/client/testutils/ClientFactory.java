@@ -1,6 +1,7 @@
 package com.laispsicologia.PsychologySchedule.client.testutils;
 
 import com.laispsicologia.PsychologySchedule.client.dto.ClientDTO;
+import com.laispsicologia.PsychologySchedule.client.dto.ClientMinDTO;
 import com.laispsicologia.PsychologySchedule.client.entity.Client;
 
 import java.time.LocalDate;
@@ -18,5 +19,10 @@ public class ClientFactory {
     public static ClientDTO createClientDto() {
         Client client = createClient();
         return new ClientDTO(client);
+    }
+
+    public static ClientMinDTO createClientMinDto() {
+        Client client = createClient();
+        return new ClientMinDTO(client);
     }
 }
