@@ -48,7 +48,7 @@ public class AppointmentServiceTests {
 
     private PageImpl<Appointment> page;
 
-    Pageable pageable;
+    private Pageable pageable;
 
     private Appointment appointment;
 
