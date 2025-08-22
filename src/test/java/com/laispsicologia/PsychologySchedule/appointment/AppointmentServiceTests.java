@@ -170,7 +170,15 @@ public class AppointmentServiceTests {
     }
 
     @Test
-    public void updateShouldReturnAppointmentDtoWhenIdExists() {
+    public void insertShouldThrowResourceNotFoundExceptionWhenInvalidClientId() {
+        minDto.setClientId(invalidClientId);
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+            service.insert(minDto);
+        });
+    }
+
+    @Test
+    public void updateShouldReturnAppointmentDtoWhenValidAppointmentId() {
         AppointmentDTO result = service.update(validId, dto);
 
         Assertions.assertNotNull(result);
@@ -183,9 +191,31 @@ public class AppointmentServiceTests {
     }
 
     @Test
-    public void updateShouldThrowResourceNotFoundWhenIdDoesNotExists() {
+    public void updateShouldThrowResourceNotFoundWhenInvalidAppointmentId() {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
             service.update(invalidId, dto);
+        });
+    }
+
+    @Test
+    public void updateShouldThrowResourceNotFoundExceptionWhenValidAppointmentIdAndInvalidClientId() {
+        dto.setClientId(invalidClientId);
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+            service.update(validId, dto);
+        });
+    }
+
+    @Test
+    public void deleteShouldDoNothingWhenIdExists() {
+        Assertions.assertDoesNotThrow(() -> {
+            service.delete(validId);
+        });
+    }
+
+    @Test
+    public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+            service.delete(invalidId);
         });
     }
 }
