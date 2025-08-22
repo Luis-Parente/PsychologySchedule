@@ -6,13 +6,14 @@ import com.laispsicologia.PsychologySchedule.appointment.entity.Appointment;
 import com.laispsicologia.PsychologySchedule.appointment.entity.AppointmentStatus;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class AppointmentFactory {
 
     public static Appointment createAppointment() {
-        return new Appointment(1L, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
-                AppointmentStatus.PENDING,
-                100.0, true, ClientFactory.createClient());
+        LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
+        return new Appointment(1L, now.plusHours(1), now.plusHours(2), AppointmentStatus.PENDING, 100.0, true,
+                ClientFactory.createClient());
     }
 
     public static AppointmentDTO createAppointmentDto() {
@@ -22,6 +23,6 @@ public class AppointmentFactory {
 
     public static AppointmentMinDTO createAppointmentMinDto() {
         Appointment appointment = createAppointment();
-        return new AppointmentMinDTO(LocalDateTime.now(), true, ClientFactory.createClient().getId());
+        return new AppointmentMinDTO(appointment.getStartTime(), true, ClientFactory.createClient().getId());
     }
 }

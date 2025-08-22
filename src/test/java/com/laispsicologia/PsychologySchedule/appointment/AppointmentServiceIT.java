@@ -4,7 +4,6 @@ import com.laispsicologia.PsychologySchedule.appointment.dto.AppointmentDTO;
 import com.laispsicologia.PsychologySchedule.appointment.dto.AppointmentMinDTO;
 import com.laispsicologia.PsychologySchedule.appointment.entity.AppointmentStatus;
 import com.laispsicologia.PsychologySchedule.client.ClientRepository;
-import com.laispsicologia.PsychologySchedule.client.entity.Client;
 import com.laispsicologia.PsychologySchedule.exceptions.InvalidDateException;
 import com.laispsicologia.PsychologySchedule.exceptions.ResourceNotFoundException;
 import com.laispsicologia.PsychologySchedule.factory.AppointmentFactory;
@@ -46,8 +45,6 @@ public class AppointmentServiceIT {
     private AppointmentDTO dto;
 
     private AppointmentMinDTO minDto;
-
-    private Client client;
 
     @BeforeEach
     void setUp() throws Exception {
