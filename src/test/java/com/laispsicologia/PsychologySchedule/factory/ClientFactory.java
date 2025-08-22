@@ -1,4 +1,4 @@
-package com.laispsicologia.PsychologySchedule.client.testutils;
+package com.laispsicologia.PsychologySchedule.factory;
 
 import com.laispsicologia.PsychologySchedule.client.dto.ClientDTO;
 import com.laispsicologia.PsychologySchedule.client.dto.ClientMinDTO;

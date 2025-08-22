@@ -1,7 +1,7 @@
 package com.laispsicologia.PsychologySchedule.client;
 
 import com.laispsicologia.PsychologySchedule.client.entity.Client;
-import com.laispsicologia.PsychologySchedule.client.testutils.ClientFactory;
+import com.laispsicologia.PsychologySchedule.factory.ClientFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,6 +77,8 @@ public class ClientRepositoryTests {
         Assertions.assertEquals(existingId, result.get().getId());
         Assertions.assertEquals("Lucas Souza", result.get().getName());
         Assertions.assertEquals("123.123.123-12", result.get().getCpf());
+        Assertions.assertNull(result.get().getDeletedAt());
+
     }
 
     @Test
@@ -103,6 +105,7 @@ public class ClientRepositoryTests {
         Assertions.assertTrue(result.isPresent());
         Assertions.assertEquals(existingId, result.get().getId());
         Assertions.assertFalse(result.get().getContacts().isEmpty());
+        Assertions.assertNull(result.get().getDeletedAt());
     }
 
     @Test
@@ -128,6 +131,8 @@ public class ClientRepositoryTests {
         Page<Client> result = repository.findByName(validName, pageable);
 
         Assertions.assertFalse(result.isEmpty());
+        Assertions.assertEquals(0, result.getNumber());
+        Assertions.assertEquals(10, result.getSize());
     }
 
     @Test
@@ -136,5 +141,7 @@ public class ClientRepositoryTests {
         Page<Client> result = repository.findByName(invalidName, pageable);
 
         Assertions.assertTrue(result.isEmpty());
+        Assertions.assertEquals(0, result.getNumber());
+        Assertions.assertEquals(10, result.getSize());
     }
 }

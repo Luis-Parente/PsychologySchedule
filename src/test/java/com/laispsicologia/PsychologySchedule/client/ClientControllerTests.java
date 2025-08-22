@@ -3,8 +3,8 @@ package com.laispsicologia.PsychologySchedule.client;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laispsicologia.PsychologySchedule.client.dto.ClientDTO;
 import com.laispsicologia.PsychologySchedule.client.dto.ClientMinDTO;
-import com.laispsicologia.PsychologySchedule.client.testutils.ClientFactory;
 import com.laispsicologia.PsychologySchedule.exceptions.ResourceNotFoundException;
+import com.laispsicologia.PsychologySchedule.factory.ClientFactory;
 import com.laispsicologia.PsychologySchedule.security.SecurityFilter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,6 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 @WebMvcTest(controllers = ClientController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityFilter.class))
 @AutoConfigureMockMvc(addFilters = false)

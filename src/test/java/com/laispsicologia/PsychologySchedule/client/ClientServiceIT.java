@@ -2,7 +2,7 @@ package com.laispsicologia.PsychologySchedule.client;
 
 import com.laispsicologia.PsychologySchedule.client.dto.ClientDTO;
 import com.laispsicologia.PsychologySchedule.client.dto.ClientMinDTO;
-import com.laispsicologia.PsychologySchedule.client.testutils.ClientFactory;
+import com.laispsicologia.PsychologySchedule.factory.ClientFactory;
 import com.laispsicologia.PsychologySchedule.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
