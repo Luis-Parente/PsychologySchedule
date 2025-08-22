@@ -8,7 +8,6 @@ import com.laispsicologia.PsychologySchedule.client.ClientRepository;
 import com.laispsicologia.PsychologySchedule.client.entity.Client;
 import com.laispsicologia.PsychologySchedule.exceptions.InvalidDateException;
 import com.laispsicologia.PsychologySchedule.exceptions.ResourceNotFoundException;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -59,7 +58,7 @@ public class AppointmentService {
         return new AppointmentDTO(repository.save(newAppointment));
     }
 
-    public AppointmentDTO update(Long id, @Valid AppointmentDTO dto) {
+    public AppointmentDTO update(Long id, AppointmentDTO dto) {
         Appointment entity = getEntityById(id);
         copyDtoToEntity(dto, entity);
         return new AppointmentDTO(repository.save(entity));

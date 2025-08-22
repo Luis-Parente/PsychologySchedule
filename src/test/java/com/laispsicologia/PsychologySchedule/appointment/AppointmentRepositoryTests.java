@@ -21,13 +21,13 @@ public class AppointmentRepositoryTests {
     @Autowired
     private AppointmentRepository repository;
 
-    private Long existingId, invalidId, countTotalClients;
+    private Long validId, invalidId, countTotalClients;
 
     private LocalDateTime validDate, invalidDate;
 
     @BeforeEach
     void setUp() throws Exception {
-        existingId = 1L;
+        validId = 1L;
         invalidId = 2000L;
         countTotalClients = 2L;
 
@@ -53,12 +53,12 @@ public class AppointmentRepositoryTests {
     @Test
     public void saveShouldUpdateClientDataWhenIdExists() {
         Appointment appointment = AppointmentFactory.createAppointment();
-        appointment.setId(existingId);
+        appointment.setId(validId);
 
         Appointment result = repository.save(appointment);
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(existingId, result.getId());
+        Assertions.assertEquals(validId, result.getId());
         Assertions.assertEquals(AppointmentStatus.PENDING, result.getAppointmentStatus());
         Assertions.assertEquals(100.0, result.getPrice());
         Assertions.assertEquals(true, result.getPaid());
@@ -92,10 +92,10 @@ public class AppointmentRepositoryTests {
 
     @Test
     public void findByIdActiveShouldReturnNotEmptyOptionalWhenValidIdAndDeletedAtIsNull() {
-        Optional<Appointment> result = repository.findByIdActive(existingId);
+        Optional<Appointment> result = repository.findByIdActive(validId);
 
         Assertions.assertTrue(result.isPresent());
-        Assertions.assertEquals(existingId, result.get().getId());
+        Assertions.assertEquals(validId, result.get().getId());
         Assertions.assertEquals(LocalDateTime.parse("2025-08-01T13:00:00"), result.get().getStartTime());
         Assertions.assertEquals(LocalDateTime.parse("2025-08-01T14:00:00"), result.get().getEndTime());
         Assertions.assertEquals(AppointmentStatus.PENDING, result.get().getAppointmentStatus());
@@ -113,11 +113,11 @@ public class AppointmentRepositoryTests {
 
     @Test
     public void findByIdActiveShouldReturnEmptyOptionalWhenValidIdAndDeletedAtIsNotNull() {
-        Optional<Appointment> appointment = repository.findByIdActive(existingId);
+        Optional<Appointment> appointment = repository.findByIdActive(validId);
         appointment.get().softDelete();
         repository.save(appointment.get());
 
-        Optional<Appointment> result = repository.findByIdActive(existingId);
+        Optional<Appointment> result = repository.findByIdActive(validId);
 
         Assertions.assertTrue(result.isEmpty());
     }
