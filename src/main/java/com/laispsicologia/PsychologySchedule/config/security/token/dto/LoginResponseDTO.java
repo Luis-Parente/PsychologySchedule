@@ -1,4 +1,4 @@
-package com.laispsicologia.PsychologySchedule.security.token.dto;
+package com.laispsicologia.PsychologySchedule.config.security.token.dto;
 
 public class LoginResponseDTO {
 

@@ -6,7 +6,7 @@ import com.laispsicologia.PsychologySchedule.appointment.dto.AppointmentMinDTO;
 import com.laispsicologia.PsychologySchedule.exceptions.InvalidDateException;
 import com.laispsicologia.PsychologySchedule.exceptions.ResourceNotFoundException;
 import com.laispsicologia.PsychologySchedule.factory.AppointmentFactory;
-import com.laispsicologia.PsychologySchedule.security.SecurityFilter;
+import com.laispsicologia.PsychologySchedule.config.security.SecurityFilter;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

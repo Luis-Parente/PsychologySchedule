@@ -1,7 +1,7 @@
-package com.laispsicologia.PsychologySchedule.security;
+package com.laispsicologia.PsychologySchedule.config.security;
 
 import com.laispsicologia.PsychologySchedule.exceptions.ResourceNotFoundException;
-import com.laispsicologia.PsychologySchedule.security.token.TokenService;
+import com.laispsicologia.PsychologySchedule.config.security.token.TokenService;
 import com.laispsicologia.PsychologySchedule.user.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

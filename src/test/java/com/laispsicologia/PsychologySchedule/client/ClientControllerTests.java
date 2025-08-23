@@ -5,7 +5,7 @@ import com.laispsicologia.PsychologySchedule.client.dto.ClientDTO;
 import com.laispsicologia.PsychologySchedule.client.dto.ClientMinDTO;
 import com.laispsicologia.PsychologySchedule.exceptions.ResourceNotFoundException;
 import com.laispsicologia.PsychologySchedule.factory.ClientFactory;
-import com.laispsicologia.PsychologySchedule.security.SecurityFilter;
+import com.laispsicologia.PsychologySchedule.config.security.SecurityFilter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

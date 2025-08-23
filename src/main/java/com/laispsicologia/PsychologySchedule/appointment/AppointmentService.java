@@ -72,8 +72,7 @@ public class AppointmentService {
 
     private Appointment createNewAppoint(AppointmentMinDTO dto) {
         Appointment newAppointment = new Appointment();
-        Client client = clientRepository.findByIdActive(dto.getClientId())
-                .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
+        Client client = getClientById(dto.getClientId());
 
         newAppointment.setStartTime(dto.getStartTime());
         newAppointment.setEndTime(dto.getStartTime().plusMinutes(client.getAppointmentDurationInMinutes()));
@@ -85,8 +84,7 @@ public class AppointmentService {
     }
 
     private void copyDtoToEntity(AppointmentDTO dto, Appointment entity) {
-        Client client = clientRepository.findByIdActive(dto.getClientId())
-                .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
+        Client client = getClientById(dto.getClientId());
 
         entity.setStartTime(dto.getStartTime());
         entity.setEndTime(dto.getEndTime());
@@ -99,5 +97,10 @@ public class AppointmentService {
     private Appointment getEntityById(Long id) {
         return repository.findByIdActive(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
+    }
+
+    private Client getClientById(Long id) {
+        return clientRepository.findByIdActive(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
     }
 }

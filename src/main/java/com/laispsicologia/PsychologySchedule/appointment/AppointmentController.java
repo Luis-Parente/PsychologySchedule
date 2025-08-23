@@ -23,7 +23,6 @@ import java.time.LocalDate;
 
 @RestController
 @RequestMapping(value = "/appointments")
-@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "Appointments", description = "Controller for Appointments")
 public class AppointmentController {
 
@@ -58,6 +57,7 @@ public class AppointmentController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Appointment created successfully", content = @Content(schema = @Schema(implementation = AppointmentDTO.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
+            @ApiResponse(responseCode = "409", description = "Conflict", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "422", description = "Unprocessable Entity", content = @Content(schema = @Schema(implementation = ValidationErrorDTO.class)))})
     @PostMapping(produces = "application/json")
     public ResponseEntity<AppointmentDTO> insert(@Valid @RequestBody AppointmentMinDTO dto) {

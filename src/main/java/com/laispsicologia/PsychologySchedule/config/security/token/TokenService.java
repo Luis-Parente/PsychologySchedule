@@ -1,4 +1,4 @@
-package com.laispsicologia.PsychologySchedule.security.token;
+package com.laispsicologia.PsychologySchedule.config.security.token;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

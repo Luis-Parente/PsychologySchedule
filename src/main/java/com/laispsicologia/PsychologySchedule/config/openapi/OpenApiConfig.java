@@ -1,4 +1,4 @@
-package com.laispsicologia.PsychologySchedule.config;
+package com.laispsicologia.PsychologySchedule.config.openapi;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.models.OpenAPI;

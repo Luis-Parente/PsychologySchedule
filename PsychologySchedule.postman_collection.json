@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "94b65f62-c421-44e0-b785-6ca8fe26af02",
+		"_postman_id": "34d418a0-a4c4-4bec-9f18-37ab04d0376f",
 		"name": "PsychologySchedule",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "39070626"
@@ -53,7 +53,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/appointments",
+							"raw": "{{host}}/appointments?firstDate=2025-08-01&lastDate=2025-08-28",
 							"host": [
 								"{{host}}"
 							],
@@ -63,13 +63,11 @@
 							"query": [
 								{
 									"key": "firstDate",
-									"value": "2025-08-01T00:00:00",
-									"disabled": true
+									"value": "2025-08-01"
 								},
 								{
 									"key": "lastDate",
-									"value": "2025-08-31T23:59:00",
-									"disabled": true
+									"value": "2025-08-28"
 								}
 							]
 						}
@@ -884,13 +882,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/professionals/3",
+							"raw": "{{host}}/professionals/1",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"professionals",
-								"3"
+								"1"
 							],
 							"query": [
 								{
@@ -930,7 +928,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Paulo\",\r\n    \"email\": \"paulo@gmail.com\",\r\n    \"password\": \"123456789\",\r\n    \"role\": \"ADMIN\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Paulo\",\r\n    \"email\": \"paulo1@gmail.com\",\r\n    \"password\": \"123456789\",\r\n    \"role\": \"ADMIN\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

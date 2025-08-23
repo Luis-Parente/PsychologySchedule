@@ -1,4 +1,4 @@
-package com.laispsicologia.PsychologySchedule.security;
+package com.laispsicologia.PsychologySchedule.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -37,7 +37,10 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authorizeHttpRequests(auth -> {
-            auth.anyRequest().permitAll();
+            auth.requestMatchers("/swagger-ui/**").permitAll();
+            auth.requestMatchers("/v3/**").permitAll();
+            auth.requestMatchers("/users/login").permitAll();
+            auth.anyRequest().authenticated();
         });
         http.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

@@ -1,4 +1,4 @@
-package com.laispsicologia.PsychologySchedule.security;
+package com.laispsicologia.PsychologySchedule.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

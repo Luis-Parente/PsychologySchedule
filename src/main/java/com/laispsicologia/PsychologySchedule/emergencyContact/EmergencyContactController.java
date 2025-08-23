@@ -1,7 +1,7 @@
 package com.laispsicologia.PsychologySchedule.emergencyContact;
 
-import com.laispsicologia.PsychologySchedule.exceptions.dto.CustomErrorDTO;
 import com.laispsicologia.PsychologySchedule.emergencyContact.dto.EmergencyContactDTO;
+import com.laispsicologia.PsychologySchedule.exceptions.dto.CustomErrorDTO;
 import com.laispsicologia.PsychologySchedule.exceptions.dto.ValidationErrorDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -52,6 +52,7 @@ public class EmergencyContactController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "EmergencyContact created successfully", content = @Content(schema = @Schema(implementation = EmergencyContactDTO.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "422", description = "Unprocessable Entity", content = @Content(schema = @Schema(implementation = ValidationErrorDTO.class)))})
     @PostMapping(produces = "application/json")
     public ResponseEntity<EmergencyContactDTO> insert(@Valid @RequestBody EmergencyContactDTO dto) {
@@ -67,7 +68,8 @@ public class EmergencyContactController {
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(schema = @Schema(implementation = CustomErrorDTO.class))),
             @ApiResponse(responseCode = "422", description = "Unprocessable Entity", content = @Content(schema = @Schema(implementation = ValidationErrorDTO.class)))})
     @PutMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<EmergencyContactDTO> update(@PathVariable Long id, @Valid @RequestBody EmergencyContactDTO dto) {
+    public ResponseEntity<EmergencyContactDTO> update(@PathVariable Long id,
+                                                      @Valid @RequestBody EmergencyContactDTO dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok(dto);
     }
