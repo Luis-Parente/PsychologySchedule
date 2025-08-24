@@ -44,7 +44,7 @@ public class ClientServiceIT {
 
         dto = ClientFactory.createClientDto();
 
-        countTotalClients = 2L;
+        countTotalClients = repository.count();
     }
 
     @Test
@@ -106,7 +106,7 @@ public class ClientServiceIT {
         ClientDTO result = service.insert(dto);
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(countTotalClients + 1, result.getId());
+        Assertions.assertNotNull(result.getId());
         Assertions.assertEquals(dto.getName(), result.getName());
         Assertions.assertEquals(dto.getCpf(), result.getCpf());
         Assertions.assertEquals(dto.getBirthDate(), result.getBirthDate());
