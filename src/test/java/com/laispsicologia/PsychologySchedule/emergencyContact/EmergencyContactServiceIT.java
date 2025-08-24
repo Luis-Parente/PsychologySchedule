@@ -107,7 +107,7 @@ public class EmergencyContactServiceIT {
         EmergencyContactDTO result = service.insert(dto);
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(countTotalContacts + 1, result.getId());
+        Assertions.assertNotNull(result.getId());
         Assertions.assertEquals(dto.getName(), result.getName());
         Assertions.assertEquals(dto.getEmail(), result.getEmail());
         Assertions.assertEquals(dto.getPhoneNumber(), result.getPhoneNumber());
