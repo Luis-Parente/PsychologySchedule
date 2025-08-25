@@ -93,7 +93,7 @@ public class EmergencyContactRepositoryTests {
     }
 
     @Test
-    public void saveShouldUpdateEmergencyContactWithAutoIncrementWhenValidId() {
+    public void saveShouldUpdateEmergencyContactWhenValidId() {
         EmergencyContact contact = EmergencyContactFactory.createEmergencyContact();
         contact.setId(validId);
         EmergencyContact result = repository.save(contact);
