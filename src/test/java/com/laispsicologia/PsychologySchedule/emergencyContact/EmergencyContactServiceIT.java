@@ -1,6 +1,5 @@
 package com.laispsicologia.PsychologySchedule.emergencyContact;
 
-import com.laispsicologia.PsychologySchedule.client.ClientRepository;
 import com.laispsicologia.PsychologySchedule.emergencyContact.dto.EmergencyContactDTO;
 import com.laispsicologia.PsychologySchedule.emergencyContact.entity.Relationship;
 import com.laispsicologia.PsychologySchedule.exceptions.ResourceNotFoundException;
@@ -23,12 +22,6 @@ public class EmergencyContactServiceIT {
 
     @Autowired
     private EmergencyContactService service;
-
-    @Autowired
-    private EmergencyContactRepository repository;
-
-    @Autowired
-    private ClientRepository clientRepository;
 
     private Long validContactId, invalidContactId;
 
