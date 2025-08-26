@@ -100,11 +100,11 @@ public class ProfessionalServiceTests {
         ProfessionalDTO result = service.insert(dto);
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(professional.getId(), result.getId());
-        Assertions.assertEquals(professional.getName(), result.getName());
-        Assertions.assertEquals(professional.getRegistrationNumber(), result.getRegistrationNumber());
-        Assertions.assertEquals(professional.getEmail(), result.getEmail());
-        Assertions.assertEquals(professional.getPhoneNumber(), result.getPhoneNumber());
+        Assertions.assertEquals(dto.getId(), result.getId());
+        Assertions.assertEquals(dto.getName(), result.getName());
+        Assertions.assertEquals(dto.getRegistrationNumber(), result.getRegistrationNumber());
+        Assertions.assertEquals(dto.getEmail(), result.getEmail());
+        Assertions.assertEquals(dto.getPhoneNumber(), result.getPhoneNumber());
     }
 
     @Test
@@ -112,11 +112,11 @@ public class ProfessionalServiceTests {
         ProfessionalDTO result = service.update(validId, dto);
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(professional.getId(), result.getId());
-        Assertions.assertEquals(professional.getName(), result.getName());
-        Assertions.assertEquals(professional.getRegistrationNumber(), result.getRegistrationNumber());
-        Assertions.assertEquals(professional.getEmail(), result.getEmail());
-        Assertions.assertEquals(professional.getPhoneNumber(), result.getPhoneNumber());
+        Assertions.assertEquals(dto.getId(), result.getId());
+        Assertions.assertEquals(dto.getName(), result.getName());
+        Assertions.assertEquals(dto.getRegistrationNumber(), result.getRegistrationNumber());
+        Assertions.assertEquals(dto.getEmail(), result.getEmail());
+        Assertions.assertEquals(dto.getPhoneNumber(), result.getPhoneNumber());
     }
 
     @Test
