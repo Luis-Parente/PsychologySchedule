@@ -22,7 +22,7 @@ public class UserRepositoryTests {
 
     private Long validId, invalidId, countTotalProfessionals;
 
-    private String validUsername, invalidUsername;
+    private String existingUsername, nonExistingUsername;
 
     Pageable pageable;
 
@@ -33,8 +33,8 @@ public class UserRepositoryTests {
         invalidId = 2000L;
         countTotalProfessionals = repository.count();
 
-        validUsername = "paulo@gmail.com";
-        invalidUsername = "invalido@gmail.com";
+        existingUsername = "paulo@gmail.com";
+        nonExistingUsername = "naoexiste@gmail.com";
 
         pageable = PageRequest.of(0, 10);
     }
@@ -69,31 +69,31 @@ public class UserRepositoryTests {
     }
 
     @Test
-    public void findByUsernameShouldReturnNotEmptyOptionalWhenValidUserName() {
-        Optional<User> result = repository.findByUsername(validUsername);
+    public void findByUsernameShouldReturnNotEmptyOptionalWhenExistingUsername() {
+        Optional<User> result = repository.findByUsername(existingUsername);
 
         Assertions.assertTrue(result.isPresent());
         Assertions.assertEquals(1L, result.get().getId());
         Assertions.assertEquals("Paulo", result.get().getName());
-        Assertions.assertEquals(validUsername, result.get().getEmail());
+        Assertions.assertEquals(existingUsername, result.get().getEmail());
         Assertions.assertEquals(Role.ADMIN, result.get().getRole());
     }
 
     @Test
-    public void findByUsernameShouldReturnEmptyOptionalWhenInvalidUserName() {
-        Optional<User> result = repository.findByUsername(invalidUsername);
+    public void findByUsernameShouldReturnEmptyOptionalWhenNonExistingUsername() {
+        Optional<User> result = repository.findByUsername(nonExistingUsername);
 
         Assertions.assertTrue(result.isEmpty());
     }
 
     @Test
     public void verifyUsernameShouldReturnTrueWhenExistingUsername() {
-        Assertions.assertTrue(repository.verifyUsername(validUsername));
+        Assertions.assertTrue(repository.verifyUsername(existingUsername));
     }
 
     @Test
     public void verifyUsernameShouldReturnFalseWhenNotExistingUsername() {
-        Assertions.assertFalse(repository.verifyUsername(invalidUsername));
+        Assertions.assertFalse(repository.verifyUsername(nonExistingUsername));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class UserRepositoryTests {
     }
 
     @Test
-    public void saveShouldUpdateProfessionalWhenValidId() {
+    public void saveShouldUpdateUserWhenValidId() {
         User user = UserFactory.createUser();
         user.setId(validId);
         User result = repository.save(user);

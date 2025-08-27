@@ -12,7 +12,7 @@ public class UserFactory {
     }
 
     public static UserRegisterDTO createUserRegisterDto() {
-        return new UserRegisterDTO("Marcio Silva", "marcio@gmail.com", "123456789", Role.USER);
+        return new UserRegisterDTO("Jair Claudio", "jair@gmail.com\"", "123456789", Role.ADMIN);
     }
 
     public static UserReturnDTO createUserReturnDto() {
