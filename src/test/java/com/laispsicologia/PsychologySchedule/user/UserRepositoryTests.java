@@ -26,7 +26,6 @@ public class UserRepositoryTests {
 
     Pageable pageable;
 
-
     @BeforeEach
     void setUp() throws Exception {
         validId = 1L;
@@ -56,7 +55,7 @@ public class UserRepositoryTests {
 
         Assertions.assertTrue(result.isPresent());
         Assertions.assertEquals(validId, result.get().getId());
-        Assertions.assertEquals("Paulo", result.get().getName());
+        Assertions.assertEquals("Paulo Manoel", result.get().getName());
         Assertions.assertEquals("paulo@gmail.com", result.get().getEmail());
         Assertions.assertEquals(Role.ADMIN, result.get().getRole());
     }
@@ -74,7 +73,7 @@ public class UserRepositoryTests {
 
         Assertions.assertTrue(result.isPresent());
         Assertions.assertEquals(1L, result.get().getId());
-        Assertions.assertEquals("Paulo", result.get().getName());
+        Assertions.assertEquals("Paulo Manoel", result.get().getName());
         Assertions.assertEquals(existingUsername, result.get().getEmail());
         Assertions.assertEquals(Role.ADMIN, result.get().getRole());
     }

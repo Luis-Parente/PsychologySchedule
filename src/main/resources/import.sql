@@ -1,4 +1,4 @@
-INSERT INTO tb_user(name, email, password, role) VALUES ('Paulo', 'paulo@gmail.com', '$2a$10$50LdbNrJl5SLXQbCuZXCmO/47ufF6zU4iwIOCCPb.gBoRSUdXsn2O', 0);
+INSERT INTO tb_user(name, email, password, role) VALUES ('Paulo Manoel', 'paulo@gmail.com', '$2a$10$50LdbNrJl5SLXQbCuZXCmO/47ufF6zU4iwIOCCPb.gBoRSUdXsn2O', 0);
 
 INSERT INTO tb_professional(name, registration_number, email, phone_number, created_at, updated_at) VALUES ('Mauro Silva', 'CRP SP/123456', 'mauro@gmail.com', '91234-1234', '2025-07-13T17:00:00Z', '2025-07-13T17:00:00Z');
 
