@@ -1,5 +1,6 @@
 package com.laispsicologia.PsychologySchedule.factory;
 
+import com.laispsicologia.PsychologySchedule.user.dto.UserLoginDTO;
 import com.laispsicologia.PsychologySchedule.user.dto.UserRegisterDTO;
 import com.laispsicologia.PsychologySchedule.user.dto.UserReturnDTO;
 import com.laispsicologia.PsychologySchedule.user.entity.Role;
@@ -12,7 +13,13 @@ public class UserFactory {
     }
 
     public static UserRegisterDTO createUserRegisterDto() {
-        return new UserRegisterDTO("Jair Claudio", "jair@gmail.com\"", "123456789", Role.ADMIN);
+        User user = createUser();
+        return new UserRegisterDTO(user.getName(), user.getEmail(), user.getPassword(), user.getRole());
+    }
+
+    public static UserLoginDTO createValidUserLoginDto() {
+        User user = createUser();
+        return new UserLoginDTO(user.getEmail(), user.getPassword());
     }
 
     public static UserReturnDTO createUserReturnDto() {
