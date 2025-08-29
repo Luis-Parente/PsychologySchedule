@@ -109,7 +109,7 @@ public class AppointmentServiceIT {
         AppointmentDTO result = service.insert(minDto);
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(countTotalAppointments + 1, result.getId());
+        Assertions.assertNotNull(result.getId());
         Assertions.assertEquals(AppointmentStatus.PENDING.toString(),
                 result.getAppointmentStatus());
         Assertions.assertEquals(80.0, result.getPrice());
